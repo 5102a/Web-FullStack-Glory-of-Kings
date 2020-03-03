@@ -1,0 +1,51 @@
+
+
+//colors
+
+$colors:("black":#000,
+  "dark":#222,
+  "dark-1":#343440,
+  "info":#4b67af,
+  "grey":#999,
+  "grey-1":#666,
+  "primary":#db9e3f,
+  "light-1":#d4d9de,
+  "light":#f9f9f9,
+  "white":#fff,
+  "white-1":#fcfcfc,
+  "white-2":#eceef0,
+);
+$border-color:map-get($colors,'light-1');
+//font size
+
+$base-font-size:1rem;
+$font-sizes:(
+  xxs:0.6154,
+  xs:0.7692,
+  sm:0.9231,
+  ms:1,
+  lg:1.0769,
+  xl:1.2308,
+);
+
+
+$flex-js:(start:flex-start,
+  end:flex-end,
+  center:center,
+  between:space-between,
+  around:space-around,
+);
+
+
+
+$flex-ai:(start:flex-start,
+  end:flex-end,
+  center:center,
+  stretch:stretch,
+);
+//spacing
+
+$spacing-types:(m:margin, p:padding);
+$spacing-directions:(t:top, r:right, b:bottom, l:left);
+$spacing-base-size:1rem;
+$spacing-sizes:(0:0, 1:0.25, 2:0.5, 3:1, 4:1.5, 5:3);
