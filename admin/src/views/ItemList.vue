@@ -1,23 +1,23 @@
 <template>
   <div class="about">
     <h1>物品列表</h1>
-    <el-table :data="items">
+    <el-table :data="items" size="mini">
       <el-table-column prop="_id" label="ID" width="230"> </el-table-column>
       <el-table-column prop="name" label="物品名称"> </el-table-column>
       <el-table-column prop="icon" label="图标">
         <template slot-scope="scope">
-          <img :src="scope.row.icon" alt="" style="height:3rem;" />
+          <img :src="scope.row.icon" alt="" style="height:1.5rem;" />
         </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
           <el-button
             type="primary"
-            size="small"
+            size="mini"
             @click="$router.push(`/items/edit/${scope.row._id}`)"
             >编辑</el-button
           >
-          <el-button type="primary" size="small" @click="remove(scope.row)"
+          <el-button type="primary" size="mini" @click="remove(scope.row)"
             >删除</el-button
           >
         </template>
@@ -35,11 +35,8 @@ export default {
   },
   methods: {
     async fetch() {
-      console.log('fetchstart')
-      // console.dir(this.$http)
       const res = await this.$http.get('rest/items')
       this.items = res.data
-      // console.log(this.items)
     },
     async remove(row) {
       this.$confirm(`是否确认要删除分类 "${row.name}"`, '提示', {
@@ -57,7 +54,6 @@ export default {
     }
   },
   created() {
-    console.log('created')
     this.fetch()
   }
 }

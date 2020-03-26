@@ -1,35 +1,44 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Main from '../views/Main.vue'
-import CategoryEdit from '../views/CategoryEdit.vue'
-import CategoryList from '../views/CategoryList.vue'
+const Login = () => import('../views/Login.vue')
+const Main = () => import('../views/Main.vue')
 
-import ItemEdit from '../views/ItemEdit.vue'
-import ItemList from '../views/ItemList.vue'
+const CategoryEdit = () => import('../views/CategoryEdit.vue')
+const CategoryList = () => import('../views/CategoryList.vue')
 
-import HeroEdit from '../views/HeroEdit.vue'
-import HeroList from '../views/HeroList.vue'
+const ItemEdit = () => import('../views/ItemEdit.vue')
+const ItemList = () => import('../views/ItemList.vue')
 
-import ArticleEdit from '../views/ArticleEdit.vue'
-import ArticleList from '../views/ArticleList.vue'
+const HeroEdit = () => import('../views/HeroEdit.vue')
+const HeroList = () => import('../views/HeroList.vue')
 
-import AdEdit from '../views/AdEdit.vue'
-import AdList from '../views/AdList.vue'
+const ArticleEdit = () => import('../views/ArticleEdit.vue')
+const ArticleList = () => import('../views/ArticleList.vue')
 
-import AdminUserEdit from '../views/AdminUserEdit.vue'
-import AdminUserList from '../views/AdminUserList.vue'
+const AdEdit = () => import('../views/AdEdit.vue')
+const AdList = () => import('../views/AdList.vue')
+
+const AdminUserEdit = () => import('../views/AdminUserEdit.vue')
+const AdminUserList = () => import('../views/AdminUserList.vue')
+
+const VideoEdit = () => import('../views/VideoEdit.vue')
+const VideoList = () => import('../views/VideoList.vue')
 
 Vue.use(VueRouter)
 
-const routes = [
-  { path: '/login', name: 'login', component: Login ,meta:{isPublic:true}},
+const routes = [{
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: {
+      isPublic: true
+    }
+  },
   {
     path: '/',
     name: 'main',
     component: Main,
-    children: [
-      {
+    children: [{
         path: '/categories/create',
         component: CategoryEdit
       },
@@ -84,7 +93,19 @@ const routes = [
         path: '/articles/list',
         component: ArticleList
       },
-
+      {
+        path: '/videos/create',
+        component: VideoEdit
+      },
+      {
+        path: '/videos/edit/:id',
+        component: VideoEdit,
+        props: true
+      },
+      {
+        path: '/videos/list',
+        component: VideoList,
+      },
       {
         path: '/ads/create',
         component: AdEdit
@@ -114,14 +135,7 @@ const routes = [
       }
     ]
   }
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
+
 ]
 
 const router = new VueRouter({
@@ -131,11 +145,13 @@ const router = new VueRouter({
 })
 
 
-router.beforeEach((to,from,next)=>{
-  if(!to.meta.isPublic&&!localStorage.token){
+router.beforeEach((to, from, next) => {
+  if (!to.meta.isPublic && !localStorage.token) {
     return next('/login')
   }
   next()
 })
+
+
 
 export default router

@@ -1,18 +1,18 @@
 <template>
   <div class="about">
     <h1>管理员列表</h1>
-    <el-table :data="items">
+    <el-table :data="items" size="mini">
       <el-table-column prop="_id" label="ID" width="230"> </el-table-column>
       <el-table-column prop="username" label="用户名"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
           <el-button
             type="primary"
-            size="small"
+           size="mini"
             @click="$router.push(`/admin_users/edit/${scope.row._id}`)"
             >编辑</el-button
           >
-          <el-button type="primary" size="small" @click="remove(scope.row)"
+          <el-button type="primary" size="mini" @click="remove(scope.row)"
             >删除</el-button
           >
         </template>

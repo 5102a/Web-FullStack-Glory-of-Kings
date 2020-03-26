@@ -14,6 +14,9 @@ Vue.mixin({
   computed:{
     uploadUrl(){
       return this.$http.defaults.baseURL+'/upload'
+    },
+    uploadVideoUrl(){
+      return this.$http.defaults.baseURL+'/uploadVideo'
     }
   },
   methods:{

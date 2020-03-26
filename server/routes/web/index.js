@@ -4,6 +4,7 @@ module.exports = app => {
   const Category = mongoose.model('Category')
   const Article = mongoose.model('Article')
   const Hero = mongoose.model('Hero')
+  const Video = mongoose.model('Video')
   router.get('/news/init', async (req, res) => {
     // await Article.deleteMany({})
 
@@ -145,11 +146,50 @@ module.exports = app => {
   })
 
 
+
   router.get('/heroes/:id',async (req,res)=>{
     const data=await Hero
     .findById(req.params.id)
     .populate('categories items1 items2 partners.hero')
     .lean()
+    res.send(data)
+  })
+
+
+
+  router.get('/videos/list', async (req, res) => {
+
+
+    const parent = await Category.findOne({
+      name: '视频分类'
+    })
+    const cats = await Category.aggregate([
+      {
+        $match: {
+          parent: parent._id
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: '_id',
+          foreignField: 'categories',
+          as: 'videoList'
+        }
+      }
+    ])
+   
+   
+
+    res.send(cats)
+
+  })
+  
+    //视频详情
+  router.get('/videos/:id',async (req,res)=>{
+    const data=await Video
+    .findById(req.params.id,{title:1,src:1,img:1})
+    console.log(data);
     res.send(data)
   })
 

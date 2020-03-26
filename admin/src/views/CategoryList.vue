@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>分类列表</h1>
-    <el-table :data="items">
+    <el-table :data="items" size="mini">
       <el-table-column prop="_id" label="ID" width="230"> </el-table-column>
       <el-table-column prop="parent.name" label="上级分类"> </el-table-column>
       <el-table-column prop="name" label="分类名称"> </el-table-column>
@@ -9,11 +9,11 @@
         <template slot-scope="scope">
           <el-button
             type="primary"
-            size="small"
+           size="mini"
             @click="$router.push(`/categories/edit/${scope.row._id}`)"
             >编辑</el-button
           >
-          <el-button type="primary" size="small" @click="remove(scope.row)"
+          <el-button type="primary" size="mini" @click="remove(scope.row)"
             >删除</el-button
           >
         </template>
@@ -31,11 +31,12 @@ export default {
   },
   methods: {
     async fetch() {
-      console.log('fetchstart')
-      // console.dir(this.$http)
+      // console.log('fetchstart')
       const res = await this.$http.get('rest/categories')
       this.items = res.data
-      console.log('fetchend')
+      // console.dir(this.items)
+
+      // console.log('fetchend')
     },
     async remove(row) {
       this.$confirm(`是否确认要删除分类 "${row.name}"`, '提示', {
@@ -53,7 +54,7 @@ export default {
     }
   },
   created() {
-    console.log('created')
+    // console.log('created')
     this.fetch()
   }
 }

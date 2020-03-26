@@ -26,18 +26,19 @@ export default {
     return {
       model: {},
       parents:[],
+      
     }
   },
   methods: {
     async save() {
-      console.log('savestart')
+      // console.log('savestart')
       // let res=
       if(this.id){
         await this.$http.put(`rest/categories/${this.id}`, this.model)
       }else{
-        await this.$http.post('rest/categories', this.model)
+        await console.dir(this.$http.post('rest/categories', this.model))
       }
-      console.log('saveend')
+      // console.log('saveend')
       this.$router.push('/categories/list')
       this.$message({
         type: 'success',

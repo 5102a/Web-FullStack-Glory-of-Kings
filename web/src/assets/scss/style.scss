@@ -1,4 +1,3 @@
-
 @import './variables';
 
 
@@ -16,23 +15,23 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.2em;
   background: #f1f1f1;
-  -webkit-font-smoothing:antialiased ;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
   color: #999;
 }
 
-p{
+p {
   line-height: 1.2rem;
 }
 
 //border
-@each $dir in (top,right,bottom,left) {
-  .border-#{$dir}{
-    border-#{$dir}:1px solid $border-color;
+@each $dir in (top, right, bottom, left) {
+  .border-#{$dir} {
+    border-#{$dir}: 1px solid $border-color;
   }
-  
+
 }
 
 @each $colorKey,
@@ -66,12 +65,33 @@ $size in $font-sizes {
 
 //width height
 
-.w-100{
+@for $i from 1 to 20 {
+  .w-#{$i*5} {
+    width: $i*5;
+  }
+
+  .h-#{$i*5} {
+    height: $i*5;
+  }
+}
+
+
+.w-100 {
   width: 100%;
 }
-.h-100{
+
+.h-100 {
   height: 100%;
 }
+
+.w-50 {
+  width: 50%;
+}
+
+.h-70 {
+  height: 65%;
+}
+
 //flex
 
 .d-flex {
@@ -81,6 +101,7 @@ $size in $font-sizes {
 .flex-column {
   flex-direction: column;
 }
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -148,21 +169,23 @@ $type in $spacing-types {
 
 //button
 
-.btn{
-  border:none;
+.btn {
+  border: none;
   border-radius: 0.1538rem;
-  font-size:map-get($font-sizes,'sm')*$base-font-size;
+  font-size: map-get($font-sizes, 'sm')*$base-font-size;
   padding: 0.2rem 0.6rem;
-  &.btn-lg{
+
+  &.btn-lg {
     display: flex;
     align-items: center;
     justify-content: center;
-    background:map-get($colors,'white-1');
-    border:1px solid map-get($colors,'white-2');
+    background: map-get($colors, 'white-1');
+    border: 1px solid map-get($colors, 'white-2');
     padding: 0.8rem 1rem;
-    font-size:1rem;
-    i{
-      color:map-get($colors,'primary');
+    font-size: 1rem;
+
+    i {
+      color: map-get($colors, 'primary');
       font-weight: bold;
       font-size: 1.5rem;
       margin-right: 0.5rem;
@@ -173,48 +196,94 @@ $type in $spacing-types {
 
 //nav
 
-.nav{
+.nav {
   display: flex;
+
   // justify-content: space-around;
-  .nav-item{
+  .nav-item {
     border-bottom: 3px solid transparent;
     padding-bottom: 0.2rem;
-    &.active{
-      color:map-get($colors,'primary');
-      border-bottom: 3px solid map-get($colors,'primary');
+
+    &.active {
+      color: map-get($colors, 'primary');
+      border-bottom: 3px solid map-get($colors, 'primary');
     }
   }
- &.nav-inverse{
-  .nav-item{
-    color: map-get($colors,'white');
-    &.active{
-      border-bottom-color: map-get($colors,'white');
+
+  &.nav-inverse {
+    .nav-item {
+      color: map-get($colors, 'white');
+
+      &.active {
+        border-bottom-color: map-get($colors, 'white');
+      }
     }
   }
- }
 }
 
-.sprite{
+.sprite {
   background: url(../images/index.png) no-repeat 0 0;
   background-size: 28.8462rem;
   display: inline-block;
-  &.sprite-news{
-    width: 1.7692rem;
-    height: 1.5385rem;
+  width: 2rem;
+  height: 2rem;
+
+  &.sprite-blz {
+
     background-position: 63.546% 15.517%;
   }
-  &.sprite-arrow{
-    width: 0.7692rem;
-    height: 0.7692rem;
-    background-position: 38.577% 52.076%;
 
+  &.sprite-gsz {
+    background-position: 90.483% 15.614%;
+  }
+
+  &.sprite-zbsc {
+    background-position: 36.746% 0.924%;
+  }
+
+  &.sprite-tyf {
+    background-position: 10.408% 15.517%;
+  }
+
+  &.sprite-xrzq {
+    background-position: 89.733% 1.266%;
+  }
+
+  &.sprite-ryjc {
+    background-position: 36.467% 15.287%;
+  }
+
+  &.sprite-mnzzlk {
+    width: 2.5rem;
+    height: 2rem;
+    background-position: 9.302% 0.813%;
+  }
+
+  &.sprite-wzyd {
+    background-position: 63.3% 0.927%;
+  }
+
+  &.sprite-gzh {
+    background-position: 0 96.207%;
+  }
+
+  &.sprite-arrow {
+    width: 1rem;
+    height: 0.8rem;
+    background-position: 38.577% 52.076%;
+  }
+
+  &.sprite-hero {
+    width: 1rem;
+    height: 0.8rem;
+    background-position: 46.768% 60.452%;
   }
 }
 
 //text overflow
-.text-ellipse{
+.text-ellipse {
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space:nowrap;
+  white-space: nowrap;
 }

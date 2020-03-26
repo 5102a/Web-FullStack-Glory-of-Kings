@@ -15,12 +15,18 @@ Vue.component('m-card',Card)
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
-Vue.use(VueAwesomeSwiper,)
+import VideoPlayer from 'vue-video-player'
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+
+Vue.use(VueAwesomeSwiper)
+Vue.use(VideoPlayer)
 
 
 import axios from 'axios'
 Vue.prototype.$http=axios.create({
-  baseURL:'http://localhost:3000/web/api'
+  baseURL:process.env.VUE_APP_API_URL||'/web/api'
+  // baseURL:'http://localhost:3000/web/api'
 })
 
 
