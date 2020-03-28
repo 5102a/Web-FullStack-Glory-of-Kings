@@ -58,7 +58,7 @@ module.exports = app => {
   app.use('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => {
     
     const file = req.file
-    file.url = `http://localhost:3000/uploads/${file.filename}`
+    file.url = `http://${process.env.domain}/uploads/${file.filename}`
     // console.log(file);
 
     res.send(file)
@@ -69,7 +69,7 @@ module.exports = app => {
     
     const video = req.file
     // video.filename=video.filename+'.'+/\/(.+)/.exec(video.mimetype)[1]
-    video.src = `http://localhost:3000/uploadVideos/${video.filename}`
+    video.src = `http://${process.env.domain}/uploadVideos/${video.filename}`
     console.log(video);
 
     res.send(video)

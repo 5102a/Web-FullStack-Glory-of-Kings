@@ -1,7 +1,8 @@
 const express = require('express')
 
 const app = express()
-// process.env.NODE_ENV=
+
+process.env.domain = process.env.NODE_ENV == 'production' ? '5102it.cn' : 'localhost:3000'
 
 app.set('secret', 'fdsffbfs')
 
@@ -20,5 +21,5 @@ require('./routes/admin')(app)
 require('./routes/web')(app)
 
 app.listen(3000, () => {
-  console.log('http://localhost:3000')
+  console.log(`http://${process.env.domain}`)
 })
