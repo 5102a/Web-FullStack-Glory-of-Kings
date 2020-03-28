@@ -9,11 +9,11 @@ const schema = new mongoose.Schema({
     type: String
   },
   watch: {
-    type: Number
+    type: String
   },
-  url:{
-    type:String
-  },
+  // url:{
+  //   type:String
+  // },
   src:{
     type:String
   },

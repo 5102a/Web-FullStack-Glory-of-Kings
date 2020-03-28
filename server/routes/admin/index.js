@@ -46,8 +46,6 @@ module.exports = app => {
   })
 
  
-
-
   app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddleware(), router)
   
   const multer = require('multer')

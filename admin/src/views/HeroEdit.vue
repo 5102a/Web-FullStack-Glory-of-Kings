@@ -223,7 +223,7 @@ export default {
   methods: {
     async save() {
       console.log('savestart')
-      // let res=
+
       if (this.id) {
         await this.$http.put(`rest/heroes/${this.id}`, this.model)
       } else {
