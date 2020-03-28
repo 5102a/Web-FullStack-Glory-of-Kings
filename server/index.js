@@ -8,7 +8,7 @@ app.set('secret', 'fdsffsfs')
 app.use(require('cors')())
 app.use(express.json())
 
-app.use('/', express.static(__dirname + '/web'))
+app.use('/',express.static(__dirname + '/web'))
 
 app.use('/admin', express.static(__dirname + '/admin'))
 
