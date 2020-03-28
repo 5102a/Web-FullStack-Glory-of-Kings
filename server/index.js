@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 // process.env.NODE_ENV=
 
-app.set('secret', 'fdsfffs')
+app.set('secret', 'fdsffbfs')
 
 app.use(require('cors')())
 app.use(express.json())
