@@ -34,7 +34,7 @@
           class="avatar-uploader"
           :action="uploadUrl"
           :show-file-list="false"
-          :on-success="success"
+          :on-success="res=>$set(model, 'img', res.url)"
           :headers="getAuthHeaders()"
         >
           <img v-if="model.img" :src="model.img" class="avatar" />
