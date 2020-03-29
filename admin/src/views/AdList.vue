@@ -30,11 +30,11 @@ export default {
   },
   methods: {
     async fetch() {
-      console.log('fetchstart')
+      // console.log('fetchstart')
       // console.dir(this.$http)
       const res = await this.$http.get('rest/ads')
       this.items = res.data
-      console.log('fetchend')
+      // console.log('fetchend')
     },
     async remove(row) {
       this.$confirm(`是否确认要删除分类 "${row.name}"`, '提示', {
@@ -52,7 +52,7 @@ export default {
     }
   },
   created() {
-    console.log('created')
+    // console.log('created')
     this.fetch()
   }
 }

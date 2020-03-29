@@ -35,12 +35,12 @@
         v-for="(video, i) in category"
         :key="i"
       >
-        <img class="w-100 mb-2" :src="video.videoList[0].img" alt="" />
+        <img class="w-100 mb-2" :src="video.img" alt="" />
         <div
           class="text-dark mb-2 "
           style="height:32px;overflow:hidden;line-height:18px"
         >
-          {{ video.videoList[0].title }}
+          {{ video.title }}
         </div>
       </router-link>
     </div>
@@ -64,7 +64,7 @@ export default {
         fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
         sources: [
           {
-            type: '', //这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
+            type: 'video/mp4', //这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
             src: '' //url地址
           }
         ],
@@ -96,9 +96,9 @@ export default {
     },
     async fetchVideoCats() {
       const res = await this.$http.get('videos/list')
-      console.log(res.data)
+      console.log(res.data[0].videoList)
 
-      this.category = res.data
+      this.category = res.data[0].videoList
     }
   },
   created() {

@@ -32,7 +32,7 @@ export default {
     async fetch() {
       const res = await this.$http.get('rest/admin_users')
       this.items = res.data
-      console.log('fetchend')
+      // console.log('fetchend')
     },
     async remove(row) {
       this.$confirm(`是否确认要删除分类 "${row.username}"`, '提示', {

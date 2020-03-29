@@ -704,7 +704,7 @@ module.exports = app => {
       }
 
     }
-    console.log(hot.heroList);
+    // console.log(hot.heroList);
 
 
     // cats.unshift({
@@ -789,7 +789,7 @@ module.exports = app => {
         src: 1,
         img: 1
       })
-    console.log(data);
+    // console.log(data);
     res.send(data)
   })
 

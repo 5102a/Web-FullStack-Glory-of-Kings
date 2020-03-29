@@ -60,14 +60,14 @@ export default {
   },
   methods: {
     async save() {
-      console.log('savestart')
+      // console.log('savestart')
       // let res=
       if (this.id) {
         await this.$http.put(`rest/ads/${this.id}`, this.model)
       } else {
         await this.$http.post('rest/ads', this.model)
       }
-      console.log('saveend')
+      // console.log('saveend')
       this.$router.push('/ads/list')
       this.$message({
         type: 'success',

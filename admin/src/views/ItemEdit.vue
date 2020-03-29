@@ -39,7 +39,7 @@ export default {
     },
     async save () {
       if (this.id) {
-        console.dir(this.model)
+        // console.dir(this.model)
         await this.$http.put(`rest/items/${this.id}`, this.model)
       } else {
         await this.$http.post('rest/items', this.model)

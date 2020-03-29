@@ -54,13 +54,13 @@ export default {
       resetUploader()
     },
     async save() {
-      // let res=
+
       if (this.id) {
         await this.$http.put(`rest/articles/${this.id}`, this.model)
       } else {
         await this.$http.post('rest/articles', this.model)
       }
-      console.log('saveend')
+      // console.log('saveend')
       this.$router.push('/articles/list')
       this.$message({
         type: 'success',

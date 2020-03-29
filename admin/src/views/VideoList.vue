@@ -38,7 +38,7 @@ export default {
     async fetch() {
 
       const res = await this.$http.get('rest/videos')
-      console.log(res.data);
+      // console.log(res.data);
       
       this.items = res.data
 

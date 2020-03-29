@@ -222,14 +222,14 @@ export default {
   },
   methods: {
     async save() {
-      console.log('savestart')
+      // console.log('savestart')
 
       if (this.id) {
         await this.$http.put(`rest/heroes/${this.id}`, this.model)
       } else {
         await this.$http.post('rest/heroes', this.model)
       }
-      console.log('saveend')
+      // console.log('saveend')
       this.$router.push('/heroes/list')
       this.$message({
         type: 'success',

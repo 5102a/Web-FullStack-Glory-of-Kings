@@ -28,14 +28,14 @@ export default {
   },
   methods: {
     async save() {
-      console.log('savestart')
+      // console.log('savestart')
       // let res=
       if(this.id){
         await this.$http.put(`rest/admin_users/${this.id}`, this.model)
       }else{
         await this.$http.post('rest/admin_users', this.model)
       }
-      console.log('saveend')
+      // console.log('saveend')
       this.$router.push('/admin_users/list')
       this.$message({
         type: 'success',

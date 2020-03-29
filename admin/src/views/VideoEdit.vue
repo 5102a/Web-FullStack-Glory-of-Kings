@@ -36,6 +36,7 @@
           :show-file-list="false"
           :on-success="res => $set(model, 'img', res.url)"
           :headers="getAuthHeaders()"
+          
         >
           <img v-if="model.img" :src="model.img" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -57,6 +58,7 @@
           drag
           :on-success="res => $set(model, 'src', res.src)"
           :headers="getAuthHeaders()"
+         
         >
           <video
             type="video/mp4"
@@ -90,8 +92,7 @@ export default {
   },
   methods: {
     async save() {
-      // console.log(this.id);
-      // console.log(this.model);
+    
       if (this.id) {
         await this.$http.put(`rest/videos/${this.id}`, this.model)
       } else {
