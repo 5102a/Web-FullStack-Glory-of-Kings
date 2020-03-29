@@ -36,7 +36,6 @@
           :show-file-list="false"
           :on-success="res => $set(model, 'img', res.url)"
           :headers="getAuthHeaders()"
-          
         >
           <img v-if="model.img" :src="model.img" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -58,17 +57,18 @@
           drag
           :on-success="res => $set(model, 'src', res.src)"
           :headers="getAuthHeaders()"
-         
+          :on-progress="uploadVideoProcess"
         >
           <video
             type="video/mp4"
             style="width:350px"
-            v-if="model.src"
             :src="model.src"
             class="avatar"
+            v-show="per>=99||per<1"
             controls="true"
             readyState="3"
           />
+          <el-progress v-show="per>=1&&per<99" type="circle" :percentage="per" style="margin-top:20px"></el-progress>
         </el-upload>
       </el-form-item>
 
@@ -87,12 +87,12 @@ export default {
   data() {
     return {
       model: {},
-      categories: []
+      categories: [],
+      per: 0,
     }
   },
   methods: {
     async save() {
-    
       if (this.id) {
         await this.$http.put(`rest/videos/${this.id}`, this.model)
       } else {
@@ -112,6 +112,9 @@ export default {
     async fetchCategories() {
       const res = await this.$http.get(`rest/categories`)
       this.categories = res.data
+    },
+    uploadVideoProcess(event, file) {
+      this.per = file.percentage.toFixed(0)*1
     }
   },
   created() {

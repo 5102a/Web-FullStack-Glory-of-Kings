@@ -10,7 +10,7 @@
     <div class="d-flex" style="border:1px solid #d4d9de;margin:12px 4px">
       <img
         src="http://game.gtimg.cn/images/yxzj/web201605/main/default_head.jpg"
-        style="width:70px;"
+        style="width:20vw;"
         class="p-2 "
         alt=""
       />
@@ -64,7 +64,7 @@ export default {
         fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
         sources: [
           {
-            type: 'video/mp4', //这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
+            type:'video/mp4',
             src: '' //url地址
           }
         ],
