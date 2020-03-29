@@ -7,20 +7,12 @@ module.exports = app => {
   const authMiddleware = require('../../middleware/auth')
   const resourceMiddleware = require('../../middleware/resource')
 
-  const multerCos = require('../../plugins/multerCos')
-  const imgUpLoad = multerCos({
-    dir: 'uploads',
-    flag: 'file',
-    onProgress: function (data) {
-      // console.log(data);
-    }
+  const multer = require('multer')
+  const upload = multer({
+    dest: __dirname + '/../../uploads'
   })
-  const videoUpLoad = multerCos({
-    dir: 'uploadVideos',
-    flag: 'file',
-    onProgress: function (data) {
-      // console.log(data)
-    }
+  const uploadVideo = multer({
+    dest: __dirname + '/../../uploadVideos'
   })
 
   const router = express.Router()
@@ -70,27 +62,26 @@ module.exports = app => {
   app.use(
     '/admin/api/upload',
     authMiddleware(),
+    upload.single('file'),
     async (req, res) => {
-      imgUpLoad(req, res, err => {
-        const file = req.files[0]
-        // console.log(file);
-        res.send(file)
-      })
+      const file = req.file
+      file.url = `http://${process.env.domain}/uploads/${file.filename}`
+      // console.log(file);
+      res.send(file)
     }
-
   )
 
   app.use(
     '/admin/api/uploadVideo',
     authMiddleware(),
+    uploadVideo.single('file'),
     async (req, res) => {
-      videoUpLoad(req, res, err => {
-        // console.log(req.files);
-        const file = req.files[0]
-        res.send(file)
-      })
+      const video = req.file
+      // video.filename = video.filename + '.' + /\/(.+)/.exec(video.mimetype)[1]
+      video.url = `http://${process.env.domain}/uploadVideos/${video.filename}`
+      console.log(video);
+      res.send(video)
     }
-
   )
 
   app.post('/admin/api/login', async (req, res) => {

@@ -34,7 +34,7 @@
           class="avatar-uploader"
           :action="uploadUrl"
           :show-file-list="false"
-          :on-success="res => $set(model, 'img', res.url)"
+          :on-success="success"
           :headers="getAuthHeaders()"
         >
           <img v-if="model.img" :src="model.img" class="avatar" />
@@ -55,7 +55,7 @@
           :action="uploadVideoUrl"
           :show-file-list="false"
           drag
-          :on-success="res => $set(model, 'src', res.src)"
+          :on-success="success"
           :headers="getAuthHeaders()"
           :on-progress="uploadVideoProcess"
         >
@@ -64,11 +64,11 @@
             style="width:350px"
             :src="model.src"
             class="avatar"
-            v-show="per>=99||per<1"
+            v-show="!isShow"
             controls="true"
             readyState="3"
           />
-          <el-progress v-show="per>=1&&per<99" type="circle" :percentage="per" style="margin-top:20px"></el-progress>
+          <el-progress v-show="isShow" type="circle" :percentage="per" style="margin-top:20px"></el-progress>
         </el-upload>
       </el-form-item>
 
@@ -89,6 +89,7 @@ export default {
       model: {},
       categories: [],
       per: 0,
+      isShow:false,
     }
   },
   methods: {
@@ -115,6 +116,19 @@ export default {
     },
     uploadVideoProcess(event, file) {
       this.per = file.percentage.toFixed(0)*1
+    },
+    success(res){
+      this.$set(this.model, 'src', res.url)
+      this.isShow=false
+    }
+  },
+  watch:{
+    per(val){
+      if(this.model.src&&val>0&&val<99){
+        this.isShow=true
+      }else{
+        this.isShow=true
+      }
     }
   },
   created() {
