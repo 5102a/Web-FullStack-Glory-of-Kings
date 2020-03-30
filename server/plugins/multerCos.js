@@ -32,15 +32,15 @@ module.exports = function (opt) {
    */
 
   cosConfig.dir = opt.dir
-  cosConfig.onProgress = opt.progress
+  cosConfig.onProgress = opt.onProgress 
   
   let con = {
     cos: cosConfig,
     //Note:如果你传递的是一个函数，你负责创建文件夹，如果你传递的是一个字符串，multer会自动创建 如果什么都不传 系统自己会生成tmp目录
-    // destination: opt.mk,
-    destination:function(req,res,cb){
-      cb(null,cosConfig.dir)
-    },
+    destination: opt.dir,  //
+    //destination:function(req,res,cb){
+      //cb(null,cosConfig.dir)
+    //},
     //自己会生成个随机16字母的文件名和后缀
     filename: 'auto'
   }

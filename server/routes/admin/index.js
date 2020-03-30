@@ -13,14 +13,16 @@ module.exports = app => {
     flag: 'file',
     onProgress: function (data) {
       // console.log(data);
-    }
+    },
+          mk:function(){}
   })
   const videoUpLoad = multerCos({
     dir: 'uploadVideos',
     flag: 'file',
     onProgress: function (data) {
       // console.log(data)
-    }
+    },
+          mk:function(){}
   })
 
   const router = express.Router()
@@ -71,7 +73,7 @@ module.exports = app => {
     '/admin/api/upload',
     authMiddleware(),
     async (req, res) => {
-      imgUpLoad(req, res, err => {
+      imgUpLoad(req, res,function (err) {
         const file = req.files[0]
         // console.log(file);
         res.send(file)
@@ -84,7 +86,7 @@ module.exports = app => {
     '/admin/api/uploadVideo',
     authMiddleware(),
     async (req, res) => {
-      videoUpLoad(req, res, err => {
+      videoUpLoad(req, res, function (err) {
         // console.log(req.files);
         const file = req.files[0]
         res.send(file)

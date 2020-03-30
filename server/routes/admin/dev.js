@@ -79,7 +79,7 @@ module.exports = app => {
       const video = req.file
       // video.filename = video.filename + '.' + /\/(.+)/.exec(video.mimetype)[1]
       video.url = `http://${process.env.domain}/uploadVideos/${video.filename}`
-      console.log(video);
+      //console.log(video);
       res.send(video)
     }
   )
