@@ -21,8 +21,6 @@ const cosConfig = {
 };
 
 
-
-
 module.exports = function (opt) {
   /**
    * @dir 存储路径str
