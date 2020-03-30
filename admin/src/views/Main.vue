@@ -86,6 +86,9 @@ export default {
         message: '退出成功'
       })
     }
+  },
+  mouted(){
+    this.$router.replace('/')
   }
 }
 </script>

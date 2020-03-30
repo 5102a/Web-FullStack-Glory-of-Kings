@@ -1,6 +1,6 @@
 <template>
   <div>
-    <swiper :options="swiperOption">
+    <swiper  :options="swiperOption">
       <swiper-slide>
         <img
           src="http://ossweb-img.qq.com/upload/adw/image/20200324/71ca15b117ea503f20141296b1861092.jpeg"
@@ -29,7 +29,7 @@
     </swiper>
 
     <div class="nav-icons bg-white mt-3 pt-3 text-dark-1 text-center">
-      <div class="d-flex flex-wrap" >
+      <div class="d-flex flex-wrap">
         <div class="nav-item mb-3" v-for="(v, k) in nav" :key="k">
           <i :class="'sprite sprite-' + k"></i>
           <div class="py-2">{{ v }}</div>
@@ -61,7 +61,7 @@
       </template>
     </m-list-card>
 
-    <m-list-card icon="user-o" title="英雄列表" :categories="heroCats" >
+    <m-list-card icon="user-o" title="英雄列表" :categories="heroCats">
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin:0 0.5rem">
           <router-link
@@ -122,7 +122,10 @@ export default {
       swiperOption: {
         pagination: {
           el: '.pagination-home'
-        }
+        },
+        autoplay:true,
+        loop:true,
+        speed:200
       },
       newsCats: [],
       heroCats: [],
@@ -159,7 +162,7 @@ export default {
       this.videoCats = res.data
     },
     narrow() {
-      let target=document.querySelector('#ban')
+      let target = document.querySelector('#ban')
       target.previousElementSibling.children.forEach((item, index) => {
         if (index > 3) {
           if (!item.hidden) {
@@ -175,8 +178,9 @@ export default {
       })
     }
   },
-  mounted(){
+  mounted() {
     this.narrow()
+
   }
 }
 </script>
