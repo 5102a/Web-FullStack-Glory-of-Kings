@@ -96,7 +96,7 @@ export default {
     },
     async fetchVideoCats() {
       const res = await this.$http.get('videos/list')
-      console.log(res.data[0].videoList)
+      // console.log(res.data[0].videoList)
 
       this.category = res.data[0].videoList
     }
