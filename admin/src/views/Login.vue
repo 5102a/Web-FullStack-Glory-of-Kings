@@ -7,9 +7,18 @@
     </div> -->
     <div class="checking">
       登录验证中
-      <img src="../assets/img/1.png" alt="" />
-      <img src="../assets/img/2.png" alt="" />
-      <img src="../assets/img/3.png" alt="" />
+      <img
+        src="https://multer-1258613188.cos.ap-shanghai.myqcloud.com/uploads/1.png"
+        alt=""
+      />
+      <img
+        src="https://multer-1258613188.cos.ap-shanghai.myqcloud.com/uploads/2.png"
+        alt=""
+      />
+      <img
+        src="https://multer-1258613188.cos.ap-shanghai.myqcloud.com/uploads/3.png"
+        alt=""
+      />
     </div>
 
     <div class="login">
@@ -17,15 +26,15 @@
         <ul class="login-check">
           <li>登录</li>
           <li>
-            <label class="fa fa-user-o" for="na"></label
+            <label class="iconfont icon-wo" for="na"></label
             ><input id="na" v-model="model.username" />
           </li>
           <li>
-            <label class="fa fa-unlock-alt" for="pass"></label
+            <label class="iconfont icon-suo" for="pass"></label
             ><input type="password" v-model="model.password" id="pass" />
           </li>
           <li>
-            <label class="fa fa-key" for="ch"></label
+            <label class="iconfont icon-yuechi" for="ch"></label
             ><input v-model="checked" id="ch" />
             <span @click="getCheck">{{ check }}</span>
           </li>
@@ -70,7 +79,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -83,7 +91,7 @@ export default {
     async login() {
       // console.log('ok');
       const res = await this.$http.post('login', this.model)
-      localStorage.token = res.data.token
+      sessionStorage.token = res.data.token
       return true
     },
     getCheck() {
@@ -357,7 +365,7 @@ export default {
       function render() {
         ///渲染函数
         ctx.clearRect(0, 0, can.width, can.height) //更新前清屏再绘
-        can.width = h.offsetWidth     //实时监听html的变换，可有可无
+        can.width = h.offsetWidth //实时监听html的变换，可有可无
         can.height = h.offsetHeight
         show()
         putPoints(arrPoints) //更新点位置
@@ -379,7 +387,7 @@ export default {
 >
 
 <style scoped>
-@import '../assets/font/font-awesome-4.7.0/css/font-awesome.min.css';
+
 
 * {
   margin: 0;
@@ -437,11 +445,12 @@ form {
 form li:nth-child(1) {
   padding: 20px;
   user-select: none;
+  color: #fff;
 }
 
 form label {
   position: relative;
-  top: 2px;
+  top: 3px;
   width: 25px;
   transition-duration: 1s;
 }
@@ -500,20 +509,6 @@ form button:active {
   transform: scale(0.9, 0.9);
 }
 
-/* .mask {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -25px;
-  margin-top: -15px;
-  width: 50px;
-  height: 30px;
-  color: rgba(245, 233, 233, 0.541);
-  text-align: center;
-  line-height: 30px;
-  animation: show 2s infinite alternate;
-  user-select: none;
-} */
 
 .change {
   transform: translateX(-300px) scale(0.4);
@@ -619,55 +614,4 @@ form button:active {
     transform: scale(1, 1) rotate(0deg);
   }
 }
-
-/* .check>li {
-  list-style: none;
-  float: left;
-  margin-left: 8px;
-}
-.check>li:nth-child(1) {
-  animation: check1 2s ease infinite alternate;
-  color: rgb(179, 206, 228);
-}
-.check>li:nth-child(2) {
-  animation: check1 2s ease-in infinite alternate-reverse;
-  color: rgb(15, 21, 27);
-}
-.check>li:nth-child(3) {
-  animation: check1 2s ease-in-out infinite alternate;
-  color: rgb(184, 247, 39);
-}
-.check>li:nth-child(4) {
-  animation: check1 2s ease-out infinite alternate-reverse;
-  color: rgb(206, 28, 22);
-}
-.login-card {
-  width: 25rem;
-  margin: 5rem auto;
-}
-
-.check {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  user-select: none;
-  font-size: 45px;
-  text-align: center;
-  width: 150px;
-  height: 70px;
-  background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584807480014&di=31dc4af3bd676dda4521efa7a2df537d&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fforum%2Fw%3D580%2Fsign%3D96262c65f7246b607b0eb27cdbf81a35%2F33ac2bc79f3df8dcf92ffda7cc11728b4710285c.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-}
-@keyframes check1 {
-  from {
-    transform: translate(5px,-8px) rotate(-30deg) ;
-    opacity: 0.5;
-  }
-  to {
-    transform: translate(-5px,8px) rotate(30deg);
-    opacity: 1;
-  }
-} */
 </style>

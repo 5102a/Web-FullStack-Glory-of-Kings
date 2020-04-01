@@ -1,5 +1,5 @@
 const express = require('express')
-
+const compression = require('compression')
 const app = express()
 
 
@@ -7,7 +7,7 @@ app.set('secret', 'fdsffbfs')
 
 app.use(require('cors')())
 app.use(express.json())
-
+app.use(compression())
 if (process.env.NODE_ENV == 'production') {
   process.env.domain = '5102it.cn'
   require('./routes/admin/index')(app)
@@ -15,7 +15,7 @@ if (process.env.NODE_ENV == 'production') {
   process.env.domain = 'localhost:3000'
   require('./routes/admin/dev')(app)
 }
-//console.log(process.env.NODE_ENV == 'production')
+// console.log(process.env.NODE_ENV == "production",process.env.NODE_ENV)
 require('./plugins/db')(app)
 require('./routes/web')(app)
 app.use('/', express.static(__dirname + '/web'))

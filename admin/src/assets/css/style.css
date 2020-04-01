@@ -1,0 +1,47 @@
+.el-header {
+  background-color: #b3c0d1;
+  color: #333;
+  line-height: 60px;
+}
+
+.el-aside {
+  color: #333;
+}
+
+
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  min-width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
+  text-align: center;
+}
+
+.el-upload img {
+  width: auto;
+  max-height: 5rem;
+  display: block;
+}
+
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 20px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}

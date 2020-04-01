@@ -23,7 +23,7 @@
       </p>
     </div>
     <div class="" style="margin:12px 4px">
-      <i class="fa fa-gratipay px-1"></i>
+      <i class="iconfont icon-aixin px-1"></i>
       <span>猜你喜欢</span>
     </div>
     <div class="d-flex flex-wrap " style="margin:0;">

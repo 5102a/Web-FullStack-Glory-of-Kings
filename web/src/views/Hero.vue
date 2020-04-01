@@ -1,7 +1,7 @@
 <template>
   <div class="page-hero" v-if="model">
     <div class="topbar bg-black py-2 px-3 text-white d-flex ai-center">
-      <img src="../assets/images/logo.png" height="30" alt="" />
+      <img src="https://multer-1258613188.cos.ap-shanghai.myqcloud.com/uploads/logo.png" height="30" alt="" />
 
       <div class="px-2 flex-1">
         <span class="text-white">王者荣耀</span>
@@ -59,12 +59,12 @@
           <div class="p-3 bg-white border-bottom">
             <div class="d-flex">
               <router-link tag="button" class="btn btn-lg flex-1" to="/">
-                <i class="fa fa-reorder"></i>
+                <i class="iconfont icon-bofang"></i>
                 英雄介绍视频
               </router-link>
               <router-link tag="button" class="btn btn-lg flex-1 ml-2" to="/">
-                <i class="fa fa-reorder"></i>
-                英雄介绍视频
+                <i class="iconfont icon-tupian"></i>
+                一图识英雄
               </router-link>
             </div>
             <!-- ---------- -->
@@ -177,7 +177,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/_variables.scss';
+@import '~assets/scss/_variables.scss';
 .page-hero {
   .top {
     height: 50vw;

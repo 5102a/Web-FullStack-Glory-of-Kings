@@ -10,8 +10,10 @@
     <!-- 主体 -->
     <el-container>
       <!-- 侧栏 -->
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu router unique-opened :default-active="$router.path">
+      <el-aside :width="isColl?'73px':'200px'" style="background-color: rgb(238, 241, 246)">
+        <el-menu router unique-opened :default-active="$router.path" :collapse="isColl">
+          <div class="changeColl" @click="changeColl">|||</div>
+          <!-- 一级菜单 -->
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-message"></i>内容管理</template>
             <el-menu-item-group>
@@ -64,6 +66,11 @@
       <!-- 内容 -->
       <el-container>
         <el-main>
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+            <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+          </el-breadcrumb>
           <router-view :key="$router.path">
           </router-view>
         </el-main>
@@ -75,20 +82,42 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      isColl: false
+    }
   },
   methods: {
     signOut () {
-      localStorage.token = ''
+ 
+      sessionStorage.clear()
       this.$router.push('/login')
       this.$message({
         type: 'success',
         message: '退出成功'
       })
+    },
+    changeColl () {
+      this.isColl = !this.isColl
     }
-  },
-  mouted(){
-    this.$router.replace('/')
   }
 }
 </script>
+
+<style scoped>
+.changeColl {
+  color: #000;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-align: center;
+  line-height: 22px;
+  height: 24px;
+  cursor: pointer;
+  background-color: #aaa;
+}
+.el-menu {
+  border: none;
+}
+.el-menu--collapse {
+  width: 73px;
+}
+</style>

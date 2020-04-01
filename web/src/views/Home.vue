@@ -42,7 +42,7 @@
     </div>
     <!-- ------------- -->
 
-    <m-list-card icon="reorder" title="新闻资讯" :categories="newsCats">
+    <m-list-card icon="Menu" title="新闻资讯" :categories="newsCats">
       <template #items="{category}">
         <router-link
           tag="div"
@@ -61,7 +61,7 @@
       </template>
     </m-list-card>
 
-    <m-list-card icon="user-o" title="英雄列表" :categories="heroCats">
+    <m-list-card icon="-superhero" title="英雄列表" :categories="heroCats">
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin:0 0.5rem">
           <router-link
@@ -79,7 +79,7 @@
       </template>
     </m-list-card>
 
-    <m-list-card icon="reorder" title="精彩视频" :categories="videoCats">
+    <m-list-card icon="bofangshu" title="精彩视频" :categories="videoCats">
       <template #items="{category}">
         <div class="d-flex flex-wrap " style="margin:0;">
           <router-link
@@ -97,14 +97,14 @@
             >
               {{ video.title }}
             </div>
-            <i class="fa fa-play-circle-o px-1" style="line-height:14px"></i>
+            <i class="iconfont icon-bofangshu px-1" style="line-height:14px"></i>
             <span class=" text-dark flex-1">{{ video.watch }}</span>
             <span class="text-dark ">{{ video.createdAt | date }}</span>
           </router-link>
         </div>
       </template>
     </m-list-card>
-    <m-card icon="reorder" title="图文攻略"></m-card>
+    <m-card icon="book" title="图文攻略"></m-card>
   </div>
 </template>
 
@@ -186,7 +186,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/variables';
+@import '~assets/scss/variables';
 
 .pagination-home {
   .swiper-pagination-bullet {

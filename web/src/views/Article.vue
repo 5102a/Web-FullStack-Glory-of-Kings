@@ -1,7 +1,7 @@
 <template>
   <div class="page-article" v-if="model">
     <div class="d-flex py-3 px-2">
-      <div class="fa fa-backward text-info"></div>
+      <div class="iconfont icon-jiantou text-info"></div>
       <strong class="flex-1 text-info pl-2">
         {{ model.title }}
       </strong>
@@ -13,7 +13,7 @@
     <div v-html="model.body" class="px-3 body text-center"></div>
     <div class="px-3 border-top py-2">
       <div class="d-flex ai-center">
-        <i class="fa fa-reorder"></i>
+        <i class="iconfont icon-link"></i>
         <strong class="text-blue fs-lg ml-1">相关资讯</strong>
       </div>
 

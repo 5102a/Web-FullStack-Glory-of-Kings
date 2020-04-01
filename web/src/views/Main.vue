@@ -2,7 +2,7 @@
   <div>
     <div class="topbar bg-black py-2 px-3 d-flex ai-center">
       <router-link to="/">
-        <img src="../assets/images/logo.png" height="30" alt="" />
+        <img src="https://multer-1258613188.cos.ap-shanghai.myqcloud.com/uploads/logo.png" height="30" alt="" />
       </router-link>
       <div class="px-2 flex-1">
         <div class="text-white">王者荣耀</div>

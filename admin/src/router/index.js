@@ -1,28 +1,28 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-const Login = () => import('../views/Login.vue')
-const Main = () => import('../views/Main.vue')
+const Login = () => import( /* webpackChunkName: "group-1" */ 'views/Login.vue')
+const Main = () => import( /* webpackChunkName: "group-1" */ 'views/Main.vue')
 
-const CategoryEdit = () => import('../views/CategoryEdit.vue')
-const CategoryList = () => import('../views/CategoryList.vue')
+const CategoryEdit = () => import( /* webpackChunkName: "group-1" */ 'views/cate/CategoryEdit.vue')
+const CategoryList = () => import( /* webpackChunkName: "group-1" */ 'views/cate/CategoryList.vue')
 
-const ItemEdit = () => import('../views/ItemEdit.vue')
-const ItemList = () => import('../views/ItemList.vue')
+const ItemEdit = () => import( /* webpackChunkName: "group-2" */ 'views/item/ItemEdit.vue')
+const ItemList = () => import( /* webpackChunkName: "group-2" */ 'views/item/ItemList.vue')
 
-const HeroEdit = () => import('../views/HeroEdit.vue')
-const HeroList = () => import('../views/HeroList.vue')
+const HeroEdit = () => import( /* webpackChunkName: "group-2" */ 'views/hero/HeroEdit.vue')
+const HeroList = () => import( /* webpackChunkName: "group-2" */ 'views/hero/HeroList.vue')
 
-const ArticleEdit = () => import('../views/ArticleEdit.vue')
-const ArticleList = () => import('../views/ArticleList.vue')
+const ArticleEdit = () => import( /* webpackChunkName: "group-3" */ 'views/article/ArticleEdit.vue')
+const ArticleList = () => import( /* webpackChunkName: "group-3" */ 'views/article/ArticleList.vue')
 
-const AdEdit = () => import('../views/AdEdit.vue')
-const AdList = () => import('../views/AdList.vue')
+const AdEdit = () => import( /* webpackChunkName: "group-3" */ 'views/ad/AdEdit.vue')
+const AdList = () => import( /* webpackChunkName: "group-3" */ 'views/ad/AdList.vue')
 
-const AdminUserEdit = () => import('../views/AdminUserEdit.vue')
-const AdminUserList = () => import('../views/AdminUserList.vue')
+const AdminUserEdit = () => import( /* webpackChunkName: "group-4" */ 'views/adminUser/AdminUserEdit.vue')
+const AdminUserList = () => import( /* webpackChunkName: "group-4" */ 'views/adminUser/AdminUserList.vue')
 
-const VideoEdit = () => import('../views/VideoEdit.vue')
-const VideoList = () => import('../views/VideoList.vue')
+const VideoEdit = () => import( /* webpackChunkName: "group-4" */ 'views/video/VideoEdit.vue')
+const VideoList = () => import( /* webpackChunkName: "group-4" */ 'views/video/VideoList.vue')
 
 Vue.use(VueRouter)
 
@@ -38,6 +38,7 @@ const routes = [{
     path: '/',
     name: 'main',
     component: Main,
+    redirect:'/categories/create',
     children: [{
         path: '/categories/create',
         component: CategoryEdit
@@ -146,7 +147,7 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
-  if (!to.meta.isPublic && !localStorage.token) {
+  if (!to.meta.isPublic && !window.sessionStorage.getItem('token')) {
     return next('/login')
   }
   next()
