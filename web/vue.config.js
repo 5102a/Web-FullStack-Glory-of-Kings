@@ -8,16 +8,15 @@ module.exports = {
 
     if (process.env.NODE_ENV === 'production') {
       // 为生产环境修改配置...
-      config.plugins[2].options.isProd = true
       return {
         entry: './src/main-prod.js',
         externals: {
-          vue: 'Vue',
           'vue-router': 'VueRouter',
+          vue: 'Vue',
           axios: 'axios',
           'dayjs': 'dayjs',
           'vue-awesome-swiper': 'VueAwesomeSwiper',
-          'vue-video-player': 'VideoPlayer'
+          'vue-video-player': 'VueVideoPlayer'
         },
         resolve: {
           //文件夹别名
@@ -32,7 +31,6 @@ module.exports = {
       }
     } else {
       // 为开发环境修改配置...
-      config.plugins[2].options.isProd = false
       return {
         entry: './src/main-dev.js',
         resolve: {

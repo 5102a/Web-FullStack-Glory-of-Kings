@@ -16,10 +16,10 @@ Vue.component('m-card',Card)
 
 //第三方组件注册
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import VideoPlayer from 'vue-video-player'
+import VueVideoPlayer from 'vue-video-player'
 
 Vue.use(VueAwesomeSwiper)
-Vue.use(VideoPlayer)
+Vue.use(VueVideoPlayer)
 
 new Vue({
   router,
