@@ -1,15 +1,20 @@
-module.exports=option=>{
-  const jwt= require('jsonwebtoken')
-  const assert= require('http-assert')
+module.exports = option => {
+  const jwt = require('jsonwebtoken')
+  const assert = require('http-assert')
   const AdminUser = require('../models/AdminUser')
 
-  return async (req,res,next)=>{
-    const token=String(req.headers.authorization||'').split(' ').pop()
-    assert(token,401,'请先登录')
-    const {id}=jwt.verify(token,req.app.get('secret'))
-    assert(id,401,'请先登录')
-    req.user=await AdminUser.findById(id)
-    assert(req.user,401,'请先登录')
+  return async (req, res, next) => {
+    const token = String(req.headers.authorization || '').split(' ').pop()
+    assert(token, 401, '请先登录')
+    const {
+      id
+    } = jwt.verify(token, req.app.get('secret'))
+    assert(id, 401, '请先登录')
+    req.user = await await AdminUser.findById(id)
+    assert(req.user, 401, '请先登录')
+    // res.data= req.user
+    // console.dir(JSON.stringify(res.data))
+
     await next()
   }
 }

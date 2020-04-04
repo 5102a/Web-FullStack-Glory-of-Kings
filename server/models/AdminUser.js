@@ -13,7 +13,15 @@ const schema = new mongoose.Schema({
       return require('bcrypt').hashSync(val,10)
     }
   },
-
+  description:{
+    type:String,
+    default:''
+  },
+  role:[{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'Role',
+    default: null
+  }]
 })
 
 

@@ -1,6 +1,11 @@
 <template>
   <div class="about">
-    <h1>文章列表</h1>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>媒体管理</el-breadcrumb-item>
+      <el-breadcrumb-item>文章列表</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <el-table :data="items" size="mini">
       <el-table-column prop="_id" label="ID" width="230"> </el-table-column>
       <el-table-column prop="title" label="标题"> </el-table-column>
@@ -8,7 +13,7 @@
         <template slot-scope="scope">
           <el-button
             type="primary"
-           size="mini"
+            size="mini"
             @click="$router.push(`/articles/edit/${scope.row._id}`)"
             >编辑</el-button
           >
@@ -25,7 +30,7 @@
 export default {
   data() {
     return {
-      items: [],
+      items: []
     }
   },
   methods: {

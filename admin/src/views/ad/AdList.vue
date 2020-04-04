@@ -1,6 +1,11 @@
 <template>
   <div class="about">
-    <h1>广告位列表</h1>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>运营管理</el-breadcrumb-item>
+      <el-breadcrumb-item>广告位列表</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <el-table :data="items" size="mini">
       <el-table-column prop="_id" label="ID" width="230"> </el-table-column>
       <el-table-column prop="name" label="名称"> </el-table-column>

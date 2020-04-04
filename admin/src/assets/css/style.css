@@ -45,3 +45,15 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
+.el-table th.gutter {
+  display: table-cell !important
+}
+.el-breadcrumb{
+  margin-bottom: 20px;
+}
+.el-menu-item-group__title{
+  padding-left: 20px !important;
+}
+.el-tag{
+  user-select: none;
+}

@@ -1,6 +1,11 @@
 <template>
   <div class="about">
-    <h1>分类列表</h1>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>数据管理</el-breadcrumb-item>
+      <el-breadcrumb-item>分类列表</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <el-table :data="items" size="mini">
       <el-table-column prop="_id" label="ID" width="230"> </el-table-column>
       <el-table-column prop="parent.name" label="上级分类"> </el-table-column>
@@ -9,7 +14,7 @@
         <template slot-scope="scope">
           <el-button
             type="primary"
-           size="mini"
+            size="mini"
             @click="$router.push(`/categories/edit/${scope.row._id}`)"
             >编辑</el-button
           >

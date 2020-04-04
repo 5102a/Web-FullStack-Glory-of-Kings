@@ -17,16 +17,6 @@ module.exports = app => {
     }).lean()
     const newsTitles = ["正式服预告③丨新英雄镜即将登场，将军白起优化升级！", "版本动画《玄雍梦魇》·镜先导片上线！", "正式服预告②丨荣耀战令福利更新，峡谷历险即刻启程", "正式服预告①丨玄雍危机降临，S19新赛季来袭！", "新皮肤爆料丨灵猫化身刺客，不知火舞新装登场~", "【已开服】3月27日抢先服“玄雍危机”版本更新公告", "梦境修炼活动提前结束公告说明", "3月24日全服不停机更新公告", "【抢先服】“玄雍危机”版本异常问题说明", "3月27日体验服停机维护公告", "抢先服更新 S19赛季开启", "微信游戏中心微券功能说明(二期)", "【奇遇 咕嗒的寻宝之旅】活动公告", "梦境修炼活动提前结束公告说明", "【赛末冲刺领豪礼】活动开启公告", "高校联赛解说大赛正式开启报名", "【KPL今日预报】WE vs 成都AG超玩会，成都AG能否收获三连胜？", "3月28日部分比赛时间调整公告", "触手王者荣耀新秀杯报名启动 全国大赛邀请赛名额等你来战", "名嘴之路即将启动！第二届王者荣耀高校解说大赛听你来说"]
 
-
-    // const newsList = newsTitles.map(title => {
-    //   const randomCats = cats.slice(0).sort((a, b) =>
-    //     Math.random() - 0.5)
-    //   return {
-    //     categories: randomCats.slice(0, 2),
-    //     title: title,
-    //   }
-    // })
-    // console.log(cats);
     let cate, n = -1
     const newsList = newsTitles.map((title, i) => {
       if (i % 5 == 0) {
@@ -76,27 +66,12 @@ module.exports = app => {
     const subCats = cats.map(v => {
       return v._id
     })
-    // console.log(subCats);
 
 
     const hot = {
       name: '热门',
       newsList: []
     }
-    // for (let i = 5;i>0 ;) {
-    //   let temp = await Article.find().where({
-    //     categories: {
-    //       $in: [subCats[Math.floor(Math.random()*subCats.length)]]
-    //     }
-    //   }).limit(1).populate('categories').lean()
-    //   if(!hot.newsList.includes(temp)){
-    //     hot.newsList.push(temp)
-    //     i--
-    //   }
-    // }
-
-
-    // console.log(hot.newsList);
 
     for (let i = 0; i < 3;) {
       let temp = await Article.find().where({
@@ -111,8 +86,7 @@ module.exports = app => {
         }
 
       }
-      // console.log(temp);
-      // console.log(p);
+
 
 
       if (p) {
@@ -123,22 +97,11 @@ module.exports = app => {
         }
         i++
       }
-      // console.log(hot.newsList);
 
     }
-    // console.log(hot.newsList);
 
-
-    // cats.unshift({
-    //   name: '热门',
-    //   newsList: await Article.find().where({
-    //     categories: {
-    //       $in: subCats
-    //     }
-    //   }).populate('categories').limit(5).lean()
-    // })
     cats.unshift(hot)
-    // console.log(cats[0].newsList);
+
 
 
     cats.map(cat => {
@@ -629,7 +592,6 @@ module.exports = app => {
   //英雄列表接口
   router.get('/heroes/list', async (req, res) => {
 
-    // console.log('get');
 
     const parent = await Category.findOne({
       name: '英雄分类'
@@ -652,24 +614,12 @@ module.exports = app => {
     const subCats = cats.map(v => {
       return v._id
     })
-    // console.log(subCats);
 
 
     const hot = {
       name: '热门',
       heroList: []
     }
-
-    // const subCats = cats.map(v => v._id)
-    // cats.unshift({
-    //   name: '热门',
-    //   heroList: await Hero.find().where({
-    //     categories: {
-    //       $in: subCats
-    //     }
-    //   }).limit(10).lean()
-    // })
-    // // console.log(cats);
     for (let i = 0; i < 1000;i++) {
       let temp = await Hero.find().where({
         categories: subCats[Math.floor(Math.random() * subCats.length)]
@@ -685,10 +635,6 @@ module.exports = app => {
           }
           return true
         })
-        // console.log(temp);
-        
-        // console.log(p);
-        // console.log(hot.heroList);
 
         
         if(p){
@@ -704,19 +650,8 @@ module.exports = app => {
       }
 
     }
-    // console.log(hot.heroList);
 
-
-    // cats.unshift({
-    //   name: '热门',
-    //   newsList: await Article.find().where({
-    //     categories: {
-    //       $in: subCats
-    //     }
-    //   }).populate('categories').limit(5).lean()
-    // })
     cats.unshift(hot)
-    // console.log(cats[0].newsList);
 
 
     cats.map(cat => {

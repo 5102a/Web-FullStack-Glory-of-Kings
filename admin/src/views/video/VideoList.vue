@@ -1,6 +1,11 @@
 <template>
   <div class="video">
-    <h1>视频列表</h1>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>内容管理</el-breadcrumb-item>
+      <el-breadcrumb-item>视频列表</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <el-table :data="items" size="mini">
       <el-table-column prop="_id" label="ID" width="230"> </el-table-column>
       <el-table-column prop="title" label="标题"> </el-table-column>
@@ -36,12 +41,10 @@ export default {
   },
   methods: {
     async fetch() {
-
       const res = await this.$http.get('rest/videos')
       // console.log(res.data);
-      
-      this.items = res.data
 
+      this.items = res.data
     },
     async remove(row) {
       this.$confirm(`是否确认要删除视频 "${row.title}"`, '提示', {
@@ -59,7 +62,6 @@ export default {
     }
   },
   created() {
-
     this.fetch()
   }
 }

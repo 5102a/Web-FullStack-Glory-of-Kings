@@ -1,6 +1,11 @@
 <template>
   <div class="about">
-    <h1>{{ id ? '编辑' : '新建' }}英雄</h1>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>数据管理</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ id ? '编辑' : '新建' }}英雄</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-tabs value="basic" type="border-card">
         <el-tab-pane label="基础信息" name="basic">
@@ -167,17 +172,18 @@
             <el-col :md="12" v-for="(item, i) in model.partners" :key="i">
               <el-form-item label="英雄">
                 <el-select filterable v-model="item.hero">
-                  <el-option v-for="hero in heroes" 
-                  :key="hero._id"
-                  :value="hero._id"
-                  :label="hero.name"></el-option>
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :value="hero._id"
+                    :label="hero.name"
+                  ></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="描述">
                 <el-input v-model="item.description" type="textarea"></el-input>
               </el-form-item>
 
-              
               <el-form-item>
                 <el-button
                   size="small"
@@ -189,7 +195,6 @@
             </el-col>
           </el-row>
         </el-tab-pane>
-
       </el-tabs>
 
       <el-form-item style="margin-top:1rem;">
@@ -212,11 +217,11 @@ export default {
       model: {
         name: '',
         avatar: '',
-        skills:[],
-        partners:[],
+        skills: [],
+        partners: [],
         scores: {
           difficult: 0
-        },
+        }
       }
     }
   },
@@ -251,7 +256,7 @@ export default {
     async fetchHeroes() {
       const res = await this.$http.get(`rest/heroes`)
       this.heroes = res.data
-    },
+    }
   },
   created() {
     this.fetchCategories()

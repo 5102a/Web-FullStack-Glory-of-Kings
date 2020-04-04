@@ -1,11 +1,21 @@
 <template>
   <div class="about">
-    <h1>{{ id ? '编辑' : '新建' }}分类</h1>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>数据管理</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ id ? '编辑' : '新建' }}分类</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="上级分类">
         <el-select v-model="model.parent">
-        <el-option v-for="item in parents" :key="item._id" :label="item.name" :value="item._id"></el-option>
-          </el-select>
+          <el-option
+            v-for="item in parents"
+            :key="item._id"
+            :label="item.name"
+            :value="item._id"
+          ></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="名称">
         <el-input v-model="model.name"></el-input>
@@ -25,17 +35,15 @@ export default {
   data() {
     return {
       model: {},
-      parents:[],
-      
+      parents: []
     }
   },
   methods: {
     async save() {
-      // console.log('savestart')
 
-      if(this.id){
+      if (this.id) {
         await this.$http.put(`rest/categories/${this.id}`, this.model)
-      }else{
+      } else {
         await this.$http.post('rest/categories', this.model)
       }
       // console.log('saveend')
@@ -45,14 +53,15 @@ export default {
         message: '保存成功'
       })
     },
-    async fetch(){
-      const res=await this.$http.get(`rest/categories/${this.id}`)
-      this.model=res.data
+    async fetch() {
+      const res = await this.$http.get(`rest/categories/${this.id}`)
+      this.model = res.data
     },
-    async fetchParents(){
-      const res=await this.$http.get(`rest/categories`)
-      this.parents=res.data
-    },
+    async fetchParents() {
+      const res = await this.$http.get(`rest/categories`)
+      // console.log(res.data);
+      this.parents = res.data
+    }
   },
   created() {
     this.fetchParents()

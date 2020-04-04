@@ -1,6 +1,11 @@
 <template>
   <div class="video">
-    <h1>{{ id ? '编辑' : '新建' }}视频</h1>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>内容管理</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ id ? '编辑' : '新建' }}视频</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <el-form label-width="150px" @submit.native.prevent="save">
       <el-form-item label="所属分类">
         <el-select v-model="model.categories" multiple>
@@ -34,7 +39,7 @@
           class="avatar-uploader"
           :action="uploadUrl"
           :show-file-list="false"
-          :on-success="res=>$set(model, 'img', res.url)"
+          :on-success="res => $set(model, 'img', res.url)"
           :headers="getAuthHeaders()"
         >
           <img v-if="model.img" :src="model.img" class="avatar" />
@@ -68,7 +73,12 @@
             controls="true"
             readyState="3"
           />
-          <el-progress v-show="isShow" type="circle" :percentage="per" style="margin-top:20px"></el-progress>
+          <el-progress
+            v-show="isShow"
+            type="circle"
+            :percentage="per"
+            style="margin-top:20px"
+          ></el-progress>
         </el-upload>
       </el-form-item>
 
@@ -89,7 +99,7 @@ export default {
       model: {},
       categories: [],
       per: 0,
-      isShow:false,
+      isShow: false
     }
   },
   methods: {
@@ -115,19 +125,19 @@ export default {
       this.categories = res.data
     },
     uploadVideoProcess(event, file) {
-      this.per = file.percentage.toFixed(0)*1
+      this.per = file.percentage.toFixed(0) * 1
     },
-    success(res){
+    success(res) {
       this.$set(this.model, 'src', res.url)
-      this.isShow=false
+      this.isShow = false
     }
   },
-  watch:{
-    per(val){
-      if(this.model.src&&val>0&&val<99){
-        this.isShow=true
-      }else{
-        this.isShow=true
+  watch: {
+    per(val) {
+      if (this.model.src && val > 0 && val < 99) {
+        this.isShow = true
+      } else {
+        this.isShow = true
       }
     }
   },

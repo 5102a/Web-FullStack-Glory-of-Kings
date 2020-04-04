@@ -24,6 +24,14 @@ const AdminUserList = () => import( /* webpackChunkName: "group-4" */ 'views/adm
 const VideoEdit = () => import( /* webpackChunkName: "group-4" */ 'views/video/VideoEdit.vue')
 const VideoList = () => import( /* webpackChunkName: "group-4" */ 'views/video/VideoList.vue')
 
+const RoleEdit = () => import( /* webpackChunkName: "group-5" */ 'views/role/RoleEdit.vue')
+const RoleList = () => import( /* webpackChunkName: "group-5" */ 'views/role/RoleList.vue')
+
+const MenuEdit = () => import( /* webpackChunkName: "group-5" */ 'views/menu/MenuEdit.vue')
+const MenuList = () => import( /* webpackChunkName: "group-5" */ 'views/menu/MenuList.vue')
+
+const HomePage = () => import( /* webpackChunkName: "group-6" */ 'views/HomePage.vue')
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -38,8 +46,12 @@ const routes = [{
     path: '/',
     name: 'main',
     component: Main,
-    redirect:'/categories/create',
+    redirect: '/homepage',
     children: [{
+        path: '/homepage',
+        name: 'homepage',
+        component: HomePage,
+      }, {
         path: '/categories/create',
         component: CategoryEdit
       },
@@ -133,6 +145,32 @@ const routes = [{
       {
         path: '/admin_users/list',
         component: AdminUserList
+      },
+      {
+        path: '/roles/create',
+        component: RoleEdit
+      },
+      {
+        path: '/roles/edit/:id',
+        component: RoleEdit,
+        props: true
+      },
+      {
+        path: '/roles/list',
+        component: RoleList
+      },
+      {
+        path: '/menus/create',
+        component: MenuEdit
+      },
+      {
+        path: '/menus/edit/:id',
+        component: MenuEdit,
+        props: true
+      },
+      {
+        path: '/menus/list',
+        component: MenuList
       }
     ]
   }
@@ -150,6 +188,8 @@ router.beforeEach((to, from, next) => {
   if (!to.meta.isPublic && !window.sessionStorage.getItem('token')) {
     return next('/login')
   }
+
+  
   next()
 })
 

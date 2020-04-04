@@ -1,6 +1,11 @@
 <template>
   <div class="about">
-    <h1>{{ id ? '编辑' : '新建' }}文章</h1>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>媒体管理</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ id ? '编辑' : '新建' }}文章</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="所属分类">
         <el-select v-model="model.categories" multiple>
@@ -46,15 +51,19 @@ export default {
     }
   },
   methods: {
-    handleImageAdded: async function(file, Editor, cursorLocation, resetUploader) {
+    handleImageAdded: async function(
+      file,
+      Editor,
+      cursorLocation,
+      resetUploader
+    ) {
       const forData = new FormData()
       forData.append('file', file)
-      const res=await this.$http.post('upload',forData)
+      const res = await this.$http.post('upload', forData)
       Editor.insertEmbed(cursorLocation, 'image', res.data.url)
       resetUploader()
     },
     async save() {
-
       if (this.id) {
         await this.$http.put(`rest/articles/${this.id}`, this.model)
       } else {

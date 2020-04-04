@@ -1,6 +1,12 @@
 <template>
   <div class="about">
-    <h1>{{ id ? '编辑' : '新建' }}广告位</h1>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>运营管理</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ id ? '编辑' : '新建' }}广告位</el-breadcrumb-item>
+    </el-breadcrumb>
+
+
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="名称">
         <el-input v-model="model.name"></el-input>

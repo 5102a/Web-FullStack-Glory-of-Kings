@@ -7,9 +7,26 @@ const http = axios.create({
   // baseURL: 'http://localhost:3000/admin/api'
 })
 
-//请求头设置授权
+//请求头拦截设置授权
 http.interceptors.request.use(config => {
+
   if (sessionStorage.token) {
+    if (config.method == 'put' || config.method == 'post' || config.method == 'delete') {
+      console.log('ok');
+      
+      let re = JSON.parse(sessionStorage.role).some(i => {
+        if (i.name == '观光者') {
+          return true
+        }
+        return false
+      })
+      if (re) {
+        return Vue.prototype.$message({
+          type: 'error',
+          message: '您无权操作',
+        })
+      }
+    }
     config.headers.Authorization = 'Bearer ' + sessionStorage.token
   }
   return config
@@ -17,8 +34,10 @@ http.interceptors.request.use(config => {
   return Promise.reject(err)
 })
 
-
+//响应拦截
 http.interceptors.response.use(res => {
+  // console.log(res);
+
   return res
 }, err => {
   // console.dir(err.response.data)

@@ -92,6 +92,10 @@ export default {
       // console.log('ok');
       const res = await this.$http.post('login', this.model)
       sessionStorage.token = res.data.token
+      sessionStorage.manage = res.data.manage
+      sessionStorage.role = res.data.role
+      // console.log(res.data);
+      
       return true
     },
     getCheck() {
@@ -161,14 +165,14 @@ export default {
                   login.innerHTML = '登录成功'
                   this.$message({
                     type: 'success',
-                    message: '登录成功'
+                    message: `欢迎 ${this.model.username} 回来！`
                   })
                   setTimeout(() => {
                     this.$router.push('/')
                     h.style.background = '#fff'
                   }, 500)
                 },
-                () => this.getCheck()
+                // () => this.getCheck()
               )
             }, 1500)
           }
@@ -440,6 +444,7 @@ form {
   height: 380px;
   justify-content: center;
   flex-wrap: wrap;
+  z-index: 1;
 }
 
 form li:nth-child(1) {

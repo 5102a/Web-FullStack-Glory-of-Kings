@@ -3,7 +3,7 @@ module.exports = app => {
   const jwt = require('jsonwebtoken')
   const assert = require('http-assert')
   const AdminUser = require('../../models/AdminUser')
-
+  // require('./plugins/db')(app)
   const authMiddleware = require('../../middleware/auth')
   const resourceMiddleware = require('../../middleware/resource')
 
@@ -20,10 +20,11 @@ module.exports = app => {
   router.post('/', async (req, res) => {
     const model = await req.Model.create(req.body)
     // console.dir(req.body)
-    res.send(model)
+    res.send(req.body)
   })
   //编辑分类
   router.put('/:id', async (req, res) => {
+
     const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
     res.send(model)
   })
@@ -38,12 +39,37 @@ module.exports = app => {
   //获取分类列表
   router.get('/', async (req, res) => {
     const queryOptions = {}
+
     if (req.Model.modelName === 'Category') {
       queryOptions.populate = 'parent'
+    } else if (req.Model.modelName === 'Menu') {
+      queryOptions.populate = ['parent', {
+        path: 'children',
+        populate: {
+          path: 'children'
+        }
+      }]
+    } else if (req.Model.modelName === 'Role') {
+      queryOptions.populate = ['manage', {
+        path: 'children',
+        populate: ['manage', {
+          path: 'children',
+          populate: ['manage', {
+            path: 'children',
+          }]
+        }]
+      }]
+    } else if (req.Model.modelName === 'AdminUser') {
+      queryOptions.populate ='role'
     }
     const items = await req.Model.find()
       .setOptions(queryOptions)
       .limit(1000)
+    // console.log(items);
+
+    // const p=await req.Model.find().setOptions(queryOptions)
+    // console.log(p);
+
     res.send(items)
   })
   //获取编辑的分类
@@ -104,8 +130,51 @@ module.exports = app => {
       },
       app.get('secret')
     )
+    const userPower = await AdminUser.findOne({
+      username
+    }).populate([{
+      path: 'role',
+      populate: [{path:'children',populate:[{path:'children',populate:['manage','children']},'manage']},'manage']
+    }])
+   console.log(JSON.stringify(userPower))
+    let arr=[]
+    function getManage(user,arr){
+      if(!user) return
+      if((user instanceof Array)&&user.length){
+        for (let n = 0; n < user.length; n++) {
+          getManage(user[n],arr)
+        }
+      }else{
+        if(user.manage){
+          user.manage.forEach(i=>{
+            arr.push(i)
+          })
+        }
+        if(user.children&&user.children.length){
+          getManage(user.children,arr)
+        }
+        return 
+      }
+    }
+    getManage(userPower.role,arr)
+    let manage=arr.reduce((pre,item)=>{
+      let p=pre.every(i=>{
+        if(i&&i.name==item.name) return false
+        return true
+      })
+      if(p){
+        pre.push(item)
+      }
+      return pre
+    },[])
+    
+    const role=JSON.stringify(userPower.role)
+    // console.log(role);
+    manage=JSON.stringify(manage)
     res.send({
-      token
+      token,
+      manage,
+      role
     })
   })
 
