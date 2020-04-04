@@ -172,7 +172,7 @@ export default {
                     h.style.background = '#fff'
                   }, 500)
                 },
-                // () => this.getCheck()
+                () => this.getCheck()
               )
             }, 1500)
           }
