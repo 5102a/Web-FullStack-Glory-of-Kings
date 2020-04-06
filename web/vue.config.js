@@ -1,5 +1,5 @@
 module.exports = {
-
+  productionSourceMap:false,
   outputDir: __dirname + '/../server/web',
   publicPath: process.env.NODE_ENV === 'production' ?
     '/' : '/',
