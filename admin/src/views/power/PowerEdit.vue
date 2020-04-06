@@ -95,6 +95,19 @@ export default {
         return false
       })
       // console.log(this.menus);
+    },
+    // 清除末尾菜单的children项
+    clearLastChild (arr) {
+      for (let i = 0; i < arr.length; i++) {
+        if (!arr[i].children||!arr[i].children.length) {
+          delete arr[i].children
+        } else {
+          this.clearLastChild(arr[i].children)
+        }
+      }
+    },
+    // 开启弹窗
+    async getPower () {
       if (this.id) {
         const resPower = await this.$http.put(`rest/powers/${this.id}`, this.model)
         this.nodes = resPower.data.nodes
@@ -108,21 +121,6 @@ export default {
         // console.log(this.menus);
       }
       this.clearLastChild(this.menus)
-      // console.log(this.menus);
-
-    },
-    // 清除末尾菜单的children项
-    clearLastChild (arr) {
-      for (let i = 0; i < arr.length; i++) {
-        if (!arr[i].children||!arr[i].children.length) {
-          delete arr[i].children
-        } else {
-          this.clearLastChild(arr[i].children)
-        }
-      }
-    },
-    // 开启弹窗
-    getPower () {
       this.isShow = true
     },
     // 同步后代字段

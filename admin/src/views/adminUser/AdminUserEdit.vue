@@ -13,7 +13,7 @@
           <el-option
             v-for="role in roleCate"
             :key="role._id"
-            :label="role.power+'级角色：'+role.name"
+            :label="role.power + '级角色：' + role.name"
             :value="role._id"
           >
           </el-option>
@@ -46,15 +46,18 @@ export default {
   data() {
     return {
       model: {
-        role:[]
+        role: []
       },
-      roleCate:[]
+      roleCate: []
     }
   },
   methods: {
     async save() {
       // console.log(this.model)
-      this.model.password=this.$sha256(this.model.password)
+      if (!this.model.password) {
+        this.$router.push('/admin_users/list')
+      }
+      this.model.password = this.$sha256(this.model.password)
       if (this.id) {
         await this.$http.put(`rest/admin_users/${this.id}`, this.model)
       } else {

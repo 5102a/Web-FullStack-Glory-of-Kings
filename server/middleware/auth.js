@@ -23,55 +23,59 @@ module.exports = option => {
         }]
       }]
     })
+    // console.log(req.body.user.role[0]);
+
     let baseUrl = /(\/[a-z_]+)$/g.exec(req.baseUrl)[1]
-    //匹配角色
-    function matchPower(url, userRole,mode) { //user==roles 每个role有manage和children
-      return userRole.some(ro => {
-        if (ro.manage) { //如果有权限，匹配url
-          if(matchUrl(ro.manage, url, mode)) return true
-        }
-        if (ro.children && ro.children.length) { //如果有权限，匹配url
-          if(matchPower(url,ro.children)) return true
-        }
-        return false
-      })
-    }
-    //匹配url
-    function matchUrl(manage, url, mode) { //匹配url
-      let isFind = false
-      if (manage.children&&manage.children.length) {
-        let child = manage.children
-        for (let i = 0; i < child.length; i++) {
-          if(child[i].children){
-            if(matchUrl(child[i],url,mode)){
-              isFind = true
-              break
-            }
+
+    let roles = req.body.user.role
+
+    function manage(roles, url, mode) {
+      if (roles && roles.length) {
+        for (let i = 0; i < roles.length; i++) {
+          //每个角色
+          let role = roles[i]
+          if (role.manage && role.manage.children && role.manage.children.length) { //有权限集合
+            //遍历权限集合查看是否有权限
+            if (matchPower(role.manage.children, url, mode)) return true
+          } else if (role.children && role.children.length) {
+            if (manage(role.children, url, mode)) return true
           }
-          if(child[i].index){
-            // console.log(child[i].index);
-            if (child[i].index.includes(url) && child[i][mode]) {
-              isFind = true
-              break
-            }
-          }
-          
         }
       }
-      return isFind
+      return false
     }
-    // console.log(/(\/[a-z_]+)$/g.exec(req.baseUrl));
-    
-    // console.log(matchPower(baseUrl, req.body.user.role));
-    let pass=false
-    if(req.method=='GET'){
-      pass=matchPower(baseUrl, req.body.user.role,'read')
-    }else if(req.body.getMenu){
-      pass=true
-    }else{
-      pass=matchPower(baseUrl, req.body.user.role,'write')
+
+    function matchPower(child, url, mode) {
+      for (let i = 0; i < child.length; i++) {
+        if (child[i].index.includes(url) && child[i][mode]) {
+          return true
+        }
+        if (child[i].children && child[i].children.length) {
+          if (matchPower(child[i].children, url, mode)) return true
+        }
+      }
+      return false
     }
-    if(!pass){
+    console.log(baseUrl, req.baseUrl);
+
+    console.log(manage(roles, baseUrl, 'write'))
+
+    // // console.log(/(\/[a-z_]+)$/g.exec(req.baseUrl));
+
+    // // console.log(matchPower(baseUrl, req.body.user.role));
+
+    let pass = false
+    if (req.method == 'GET') {
+      pass = manage(roles, baseUrl, 'read')
+
+    } else {
+      if (req.method == 'POST' && req.baseUrl == '/admin/api/rest/admin_users'&&req.body.getMenu) {
+        pass = true
+      } else {
+        pass = manage(roles, baseUrl, 'write')
+      }
+    }
+    if (!pass) {
       assert(null, 302, '您无权操作')
     }
     // res.data= req.user

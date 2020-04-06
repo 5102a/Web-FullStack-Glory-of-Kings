@@ -4,22 +4,49 @@
     <el-header>
       <el-col :span="6" :offset="9"> 王者荣耀后台管理系统</el-col>
       <el-col :span="3" :offset="6">
-        <el-button type="primary" round size="small" @click="signOut">退出</el-button>
+        <el-button type="primary" round size="small" @click="signOut"
+          >退出</el-button
+        >
       </el-col>
     </el-header>
     <!-- 主体 -->
     <el-container>
       <!-- 侧栏 -->
-      <el-aside :width="isColl ? '73px' : '150px'" style="background-color: rgb(238, 241, 246)">
-        <el-menu router unique-opened :default-active="$router.path" :width="isColl ? '73px' : '150px'">
-          <div class="changeColl" @click="changeColl"><i class="iconfont icon-shuangjiantouzuo"></i>=<i
-              class="iconfont icon-shuangjiantouyou"></i></div>
+      <el-aside
+        :width="isColl ? '73px' : '150px'"
+        style="background-color: rgb(238, 241, 246)"
+      >
+        <el-menu
+          router
+          unique-opened
+          :default-active="$router.path"
+          :width="isColl ? '73px' : '150px'"
+        >
+          <div class="changeColl" @click="changeColl">
+            <i class="iconfont icon-shuangjiantouzuo"></i>=<i
+              class="iconfont icon-shuangjiantouyou"
+            ></i>
+          </div>
 
-          <el-submenu :index="menu1.name" v-for="menu1 in menus" :key="menu1.name">
-            <template slot="title"><i :class="'iconfont '+menuIcon[menu1.name]"></i> {{ menu1.name }}</template>
-            <el-menu-item-group v-for="menu2 in menu1.children" :key="menu2.name">
+          <el-submenu
+            :index="menu1.name"
+            v-for="menu1 in menus"
+            :key="menu1.name"
+          >
+            <template slot="title"
+              ><i :class="'iconfont ' + menuIcon[menu1.name]"></i>
+              {{ menu1.name }}</template
+            >
+            <el-menu-item-group
+              v-for="menu2 in menu1.children"
+              :key="menu2.name"
+            >
               <template slot="title">{{ menu2.name }}</template>
-              <el-menu-item :index="menu3.index" v-for="menu3 in menu2.children" :key="menu3.name">{{ menu3.name }}
+              <el-menu-item
+                :index="menu3.index"
+                v-for="menu3 in menu2.children"
+                :key="menu3.name"
+                >{{ menu3.name }}
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
@@ -106,7 +133,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       isColl: false,
       /*menus: [
@@ -305,16 +332,15 @@ export default {
       ]*/
       menus: [],
       menuIcon: {
-        '数据管理': 'icon-neirongguanli',
-        '系统管理': 'icon-shezhi1',
-        '运营管理': 'icon-huabanfuben',
-        '媒体管理': 'icon-meitibaodao'
+        数据管理: 'icon-neirongguanli',
+        系统管理: 'icon-shezhi1',
+        运营管理: 'icon-huabanfuben',
+        媒体管理: 'icon-meitibaodao'
       }
-
     }
   },
   methods: {
-    signOut () {
+    signOut() {
       sessionStorage.clear()
       this.$router.push('/login')
       this.$message({
@@ -322,56 +348,19 @@ export default {
         message: '退出成功'
       })
     },
-    changeColl () {
+    changeColl() {
       this.isColl = !this.isColl
     },
-    async fetch () {
+    async fetch() {
       // const res = await this.$http.get('rest/menus')
-      const res = await this.$http.post('rest/admin_users', { getMenu: 1 })
-      // console.log(res.data)
+      const res = await this.$http.post(`rest/admin_users`,{getMenu:true})
+      console.log(res.data)
       this.menus = res.data
 
-      // if (!sessionStorage.menus) {
-      //   const res = await this.$http.get('rest/menus')
-      //   let menus = res.data.filter(i => {
-      //     if (i.level == 1) return true
-      //   })
-      //   // console.log(JSON.parse(sessionStorage.manage));
-      //   this.matchManage(menus, JSON.parse(sessionStorage.manage))
-      //   sessionStorage.menus = JSON.stringify(this.menus)
-      //   console.log(this.menus);
-      // } else {
-      //   this.menus = JSON.parse(sessionStorage.menus)
-      // }
-    },
-    // matchManage (origin, match) {
-    //   this.menus = origin.filter(first => { //一级对象
-    //     first.children = first.children.filter(second => {//二级
-    //       second.children = second.children.filter((last) => {//三级对象
-    //         let res = match.some(i => {
-    //           if (i.name != last.name) return false
-    //           return true
-    //         })
-    //         if (!res) {
-    //           return false
-    //         }
-    //         return true
-    //       })
-    //       if (!second.children.length) {
-    //         return false
-    //       } else {
-    //         return true
-    //       }
-    //     })
-    //     if (!first.children.length) {
-    //       return false
-    //     } else {
-    //       return true
-    //     }
-    //   })
-    // }
+    }
+   
   },
-  created () {
+  created() {
     this.fetch()
   }
 }

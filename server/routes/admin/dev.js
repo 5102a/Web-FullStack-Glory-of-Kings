@@ -32,7 +32,9 @@ module.exports = app => {
       const token = String(req.headers.authorization || '')
         .split(' ')
         .pop()
-      const { id } = jwt.verify(token, req.app.get('secret'))
+      const {
+        id
+      } = jwt.verify(token, req.app.get('secret'))
       // model为用户数据
       const model = await req.Model.findById(id).populate({
         path: 'role',
@@ -129,11 +131,14 @@ module.exports = app => {
       }, [])
       // console.log(model);
       res.send(re)
+
+
     } else {
       const model = await req.Model.create(req.body)
       // console.dir(req.body)
       res.send(req.body)
     }
+
   })
   //编辑分类
   router.put('/:id', async (req, res) => {
@@ -150,6 +155,7 @@ module.exports = app => {
 
   //获取分类列表
   router.get('/', async (req, res) => {
+
     const queryOptions = {}
 
     if (req.Model.modelName === 'Category') {
@@ -184,11 +190,15 @@ module.exports = app => {
       .setOptions(queryOptions)
       .limit(1000)
     res.send(items)
+
+
   })
   //获取编辑的分类
   router.get('/:id', async (req, res) => {
+
     const model = await req.Model.findById(req.params.id)
     res.send(model)
+
   })
 
   app.use(
@@ -228,7 +238,10 @@ module.exports = app => {
       res.set('Content-Type', 'image/svg+xml')
       res.send(svgCaptcha())
     } else {
-      const { username, password } = req.body
+      const {
+        username,
+        password
+      } = req.body
       const user = await AdminUser.findOne({
         username
       }).select('+password')
@@ -237,8 +250,7 @@ module.exports = app => {
       const isValid = require('bcrypt').compareSync(password, user.password)
       assert(isValid, 422, '密码错误')
 
-      const token = jwt.sign(
-        {
+      const token = jwt.sign({
           id: user._id
         },
         app.get('secret')
