@@ -9,23 +9,27 @@
     <el-table :data="menus" size="mini" :default-sort="{prop: 'level',order:'ascending'}" stripe border>
       <el-table-column prop="_id" label="ID" width="250"></el-table-column>
       <el-table-column prop="name" label="菜单名称" width="180" align="center"> </el-table-column>
-      <!-- <el-table-column prop="parent.name" label="上级菜单" width="150" align="center"> </el-table-column> -->
-
+      <!-- 菜单的下级关系树 -->
       <el-table-column type="expand" label="菜单树" width="180" align="center">
         <template slot-scope="scope" v-if="scope.row.children">
           <el-row>
+            <!-- 一级分类菜单 -->
             <el-col :span="8">
               <el-col >
                 <el-tag effect="dark" :type="tagType[scope.row.level-1]">{{scope.row.name}}</el-tag>
                 <i v-if="scope.row.children[0]" class="el-icon-caret-right"></i>
               </el-col>
             </el-col>
+            <!-- 二、三级分类菜单 -->
             <el-col :span="16">
+              <!-- 顶边框线 -->
               <el-row :class="i==0?'':'bt'" v-for="(child,i) in scope.row.children" :key="child.name">
+                <!-- 二级分类菜单 -->
                 <el-col :span="8">
                   <el-tag effect="dark" :type="tagType[child.level-1]">{{child.name}}</el-tag>
                   <i v-if="child.children[0]" class="el-icon-caret-right"></i>
                 </el-col>
+                <!-- 三级分类菜单 -->
                 <el-col :span="16" v-if="child.children">
                   <el-row v-for="ch in child.children" :key="ch.name">
                     <el-col>
@@ -41,6 +45,7 @@
           </el-row>
         </template>
       </el-table-column>
+      <!-- 菜单等级 -->
       <el-table-column align="center" width="180" label="菜单等级" prop="level" sortable
         :sort-orders="['ascending', 'descending']">
         <template slot-scope="scope">
@@ -68,11 +73,12 @@ export default {
     }
   },
   methods: {
+    // 获取菜单列表
     async fetch () {
       const res = await this.$http.get('rest/menus')
-      // console.log(res.data);
       this.menus = res.data
     },
+    //删除菜单
     async remove (row) {
       this.$confirm(`是否确认要删除菜单 "${row.name}"`, '提示', {
         confirmButtonText: '确定',
@@ -80,16 +86,12 @@ export default {
         type: 'warning'
       }).then(async () => {
         await this.$http.delete(`rest/menus/${row._id}`)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
+        this.$message.success('删除成功!')
         this.fetch()
       })
     }
   },
   created () {
-    // console.log('created')
     this.fetch()
   }
 }

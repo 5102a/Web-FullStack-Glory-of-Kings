@@ -36,7 +36,7 @@
           <li>
             <label class="iconfont icon-yuechi" for="ch"></label
             ><input v-model="checked" id="ch" />
-            <span @click="getCheck">{{ check }}</span>
+            <span @click="getCheck" id="svg"></span>
           </li>
 
           <li>
@@ -82,7 +82,6 @@
 export default {
   data() {
     return {
-      check: '',
       checked: '',
       model: {}
     }
@@ -90,22 +89,17 @@ export default {
   methods: {
     async login() {
       // console.log('ok');
+      if (sessionStorage.svgCaptcha != this.checked.trim().toLowerCase()) return false
       const res = await this.$http.post('login', this.model)
       sessionStorage.token = res.data.token
-      sessionStorage.manage = res.data.manage
-      sessionStorage.role = res.data.role
-      // console.log(res.data);
-      
       return true
     },
-    getCheck() {
-      const chars =
-        '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-      let char = ''
-      for (let i = 0; i < 4; i++) {
-        char += chars.charAt(~~(Math.random() * chars.length - 1))
-      }
-      this.check = char
+    async getCheck() {
+      const res = await this.$http.post('login', { check: 1 })
+      let svg = document.querySelector('#svg')
+      svg.innerHTML = res.data.data
+      sessionStorage.svgCaptcha = res.data.code.toLowerCase()
+      // console.log(res.data);
     },
     bgd() {
       ///////////canvas参数
@@ -148,34 +142,25 @@ export default {
         login.setAttribute('class', 'login change')
         checking.setAttribute('class', 'checking showCheck')
         setTimeout(() => {
-          const str = this.checked.trim().toLowerCase()
-          const str1 = this.check.trim().toLowerCase()
-          if (str != str1) {
-            setTimeout(() => {
-              this.$message({
-                type: 'warning',
-                message: '验证码错误'
-              })
-              this.getCheck()
-            }, 1500)
-          } else {
-            setTimeout(() => {
-              this.login().then(
-                () => {
+          setTimeout(() => {
+            this.login().then(
+              re => {
+                if (re) {
                   login.innerHTML = '登录成功'
-                  this.$message({
-                    type: 'success',
-                    message: `欢迎 ${this.model.username} 回来！`
-                  })
+                  this.$message.success(`欢迎 ${this.model.username} 回来！`)
+                  sessionStorage.svgCaptcha = null
                   setTimeout(() => {
                     this.$router.push('/')
                     h.style.background = '#fff'
                   }, 500)
-                },
-                () => this.getCheck()
-              )
-            }, 1500)
-          }
+                } else {
+                  this.$message.warning('验证码错误,请重新输入！')
+                  this.getCheck()
+                }
+              },
+              () => this.getCheck()
+            )
+          }, 1500)
           login.setAttribute('class', 'login ')
           checking.setAttribute('class', 'checking ')
         }, 3000)
@@ -369,8 +354,8 @@ export default {
       function render() {
         ///渲染函数
         ctx.clearRect(0, 0, can.width, can.height) //更新前清屏再绘
-        can.width = h.offsetWidth //实时监听html的变换，可有可无
-        can.height = h.offsetHeight
+        // can.width = h.offsetWidth //实时监听html的变换，可有可无
+        // can.height = h.offsetHeight
         show()
         putPoints(arrPoints) //更新点位置
         putLines(arrPoints) //更新线
@@ -391,7 +376,10 @@ export default {
 >
 
 <style scoped>
-
+#svg {
+  position: relative;
+  top: 8px;
+}
 
 * {
   margin: 0;
@@ -421,7 +409,7 @@ html {
   background: linear-gradient(
     45deg,
     #0ac,
-    #06c 95%,
+    #08d 95%,
     rgba(255, 255, 255, 0) 5px
   );
   transition-duration: 1s;
@@ -514,7 +502,6 @@ form button:active {
   transform: scale(0.9, 0.9);
 }
 
-
 .change {
   transform: translateX(-300px) scale(0.4);
 }
@@ -589,6 +576,7 @@ form button:active {
   top: 0;
   left: 0;
   z-index: 1;
+  overflow: hidden;
 }
 @keyframes check1 {
   from {

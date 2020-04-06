@@ -11,22 +11,6 @@ const http = axios.create({
 http.interceptors.request.use(config => {
 
   if (sessionStorage.token) {
-    if (config.method == 'put' || config.method == 'post' || config.method == 'delete') {
-      console.log('ok');
-      
-      let re = JSON.parse(sessionStorage.role).some(i => {
-        if (i.name == '观光者') {
-          return true
-        }
-        return false
-      })
-      if (re) {
-        return Vue.prototype.$message({
-          type: 'error',
-          message: '您无权操作',
-        })
-      }
-    }
     config.headers.Authorization = 'Bearer ' + sessionStorage.token
   }
   return config
@@ -36,7 +20,7 @@ http.interceptors.request.use(config => {
 
 //响应拦截
 http.interceptors.response.use(res => {
-  // console.log(res);
+  // console.dir(res.headers);
 
   return res
 }, err => {
@@ -48,6 +32,9 @@ http.interceptors.response.use(res => {
     })
     if (err.response.status === 401) {
       router.push('/login')
+    }
+    if (err.response.status === 302) {
+      router.push('/homepage')
     }
   }
   return Promise.reject(err)

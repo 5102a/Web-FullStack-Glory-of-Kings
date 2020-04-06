@@ -30,7 +30,10 @@ const RoleList = () => import( /* webpackChunkName: "group-5" */ 'views/role/Rol
 const MenuEdit = () => import( /* webpackChunkName: "group-5" */ 'views/menu/MenuEdit.vue')
 const MenuList = () => import( /* webpackChunkName: "group-5" */ 'views/menu/MenuList.vue')
 
-const HomePage = () => import( /* webpackChunkName: "group-6" */ 'views/HomePage.vue')
+const PowerEdit = () => import( /* webpackChunkName: "group-6" */ 'views/power/PowerEdit.vue')
+const PowerList = () => import( /* webpackChunkName: "group-6" */ 'views/power/PowerList.vue')
+
+const HomePage = () => import( /* webpackChunkName: "group-10" */ 'views/HomePage.vue')
 
 Vue.use(VueRouter)
 
@@ -171,6 +174,19 @@ const routes = [{
       {
         path: '/menus/list',
         component: MenuList
+      },
+      {
+        path: '/powers/create',
+        component: PowerEdit
+      },
+      {
+        path: '/powers/edit/:id',
+        component: PowerEdit,
+        props: true
+      },
+      {
+        path: '/powers/list',
+        component: PowerList
       }
     ]
   }
@@ -185,11 +201,11 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
+  // console.log(to, from);
+
   if (!to.meta.isPublic && !window.sessionStorage.getItem('token')) {
     return next('/login')
-  }
-
-  
+  } 
   next()
 })
 

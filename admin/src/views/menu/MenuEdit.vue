@@ -7,43 +7,27 @@
     </el-breadcrumb>
 
     <el-form label-width="120px" @submit.native.prevent="save">
-      <!-- <el-form-item label="上级菜单">
-        <el-select v-model="model.parent" clearable>
-          <el-option
-            v-for="item in parents"
-            :key="item._id"
-            :label="item.name"
-            :value="item._id"
-          ></el-option>
-        </el-select>
-      </el-form-item> -->
+      <!-- 子菜单 -->
       <el-form-item label="子级菜单">
-        <el-select v-model="model.children" placeholder="请选择直接子集" clearable multiple>
-          <el-option
-            v-for="item in childrens"
-            :key="item._id"
-            :label="item.name"
-            :value="item._id"
-          ></el-option>
+        <el-select v-model="model.children" placeholder="请选择下级菜单(直接下级)" clearable multiple>
+          <el-option v-for="item in childrens" :key="item._id" :label="item.level+'级菜单：'+item.name" :value="item._id">
+          </el-option>
         </el-select>
       </el-form-item>
+      <!-- 菜单等级 -->
       <el-form-item label="菜单分级">
         <el-select v-model="model.level" placeholder="1级最高" clearable>
-          <el-option
-            v-for="le in levels"
-            :key="le"
-            :label="le + '级菜单'"
-            :value="le"
-          ></el-option>
+          <el-option v-for="le in levels" :key="le" :label="le + '级菜单'" :value="le"></el-option>
         </el-select>
       </el-form-item>
+      <!-- 菜单名称（左侧菜单名） -->
       <el-form-item label="菜单名称">
         <el-input v-model="model.name" placeholder="左侧菜单显示名"></el-input>
       </el-form-item>
+      <!-- 菜单router -->
       <el-form-item label="菜单路由">
         <el-input v-model="model.index" placeholder="如 /items/create"></el-input>
       </el-form-item>
-      
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
@@ -56,44 +40,40 @@ export default {
   props: {
     id: {}
   },
-  data() {
+  data () {
     return {
-      model: {},
-      parents: [],
+      model: {
+        children:[]
+      },
       childrens: [],
-      levels: [1, 2, 3]
+      levels: [1,2,3]
     }
   },
   methods: {
-    async save() {
-
+    //保存提交
+    async save () {
       if (this.id) {
         await this.$http.put(`rest/menus/${this.id}`, this.model)
       } else {
         await this.$http.post('rest/menus', this.model)
       }
-      // console.log(res)
       this.$router.push('/menus/list')
-      this.$message({
-        type: 'success',
-        message: '保存成功'
-      })
+      this.$message.success('保存成功')
     },
-    async fetch() {
+    //加载编辑菜单
+    async fetch () {
       const res = await this.$http.get(`rest/menus/${this.id}`)
+      // console.log(res.data);
       this.model = res.data
-      // console.log(res.data);
     },
-    async fetchParents() {
+    //获取子菜单列表
+    async fetchChildrens () {
       const res = await this.$http.get(`rest/menus`)
-      // console.log(res.data);
-      this.parents = res.data
       this.childrens = res.data
-      
     }
   },
-  created() {
-    this.fetchParents()
+  created () {
+    this.fetchChildrens()
     this.id && this.fetch()
   }
 }

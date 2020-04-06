@@ -7,40 +7,51 @@
     </el-breadcrumb>
 
     <el-form label-width="120px" @submit.native.prevent="save">
-      <!-- 角色分配 -->
+      <!-- 角色下级 -->
       <el-form-item label="角色下级">
         <el-select v-model="model.children" placeholder="可选多个下级" multiple>
-          <el-option v-for="role in roleCate" :key="role._id" :label="role.name" :value="role._id">
+          <el-option v-for="role in roleCate" :key="role._id" :label="role.power+'级角色：'+role.name" :value="role._id">
           </el-option>
         </el-select>
       </el-form-item>
-
+      <!-- 角色等级 -->
       <el-form-item label="角色权限等级">
         <el-select v-model="model.power" placeholder="1级最高" clearable>
           <el-option v-for="level in powerLevel" :key="level" :label="'等级:' + level" :value="level">
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="管理菜单">
-        <!-- <el-select v-model="model.manage" placeholder="管理菜单项(多选)" clearable multiple>
-          <el-option
-            v-for="menu in menus"
-            :key="menu._id"
-            :label="'管理菜单: ' + menu.name"
-            :value="menu._id"
-          >
+      <!-- 角色管理权限 -->
+      <el-form-item label="管理权限">
+        <el-select v-model="model.manage" placeholder="可不选,直接引用下级权限" clearable>
+          <el-option v-for="power in powers" :key="power._id" :label="power.name" :value="power._id">
+            <!-- 下拉菜单内嵌弹出框 -->
+            <el-popover placement="right" width="400" trigger="hover">
+              <el-tree :data="power.children" :default-expanded-keys="power.nodes" :default-checked-keys="power.nodes"
+                node-key="name"  show-checkbox accordion ref="tree" highlight-current >
+                <span class="custom-tree-node" slot-scope="{ node, data }">
+                  <span>{{ data.name }}</span>
+                  <span v-if="node.level==3">
+                    读权限
+                    <el-switch v-model="data.read" disabled active-color="#0af" inactive-color="#bbb"
+                     >
+                    </el-switch>
+                    写权限
+                    <el-switch v-model="data.write" disabled active-color="#0af" inactive-color="#bbb"
+                     >
+                    </el-switch>
+                  </span>
+                </span>
+              </el-tree>
+              <span style="float: left" slot="reference">{{ power.name }}</span>
+            </el-popover>
           </el-option>
-        </el-select> -->
-        <el-cascader placeholder="管理菜单项(多选)" v-model="model.manage" :options="menus" :props="{emitPath:false,multiple: true,label:'name',value:'_id'}"
-          expandTrigger="hover"  clearable></el-cascader>
+        </el-select>
       </el-form-item>
-
+      <!-- 角色名 -->
       <el-form-item label="角色名">
         <el-input v-model="model.name" placeholder="请输入角色名"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="角色编号" >
-        <el-input v-model="model.id" placeholder="(可选)格式:xyy x为等级 yy为此等级下的角色序号"></el-input>
-      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
@@ -58,58 +69,51 @@ export default {
       model: {},
       roleCate: [],
       powerLevel: [1, 2, 3],
-      menus: []
+      powers: []
     }
   },
   methods: {
     async save () {
-      // console.log(this.model)
-
       if (this.id) {
         await this.$http.put(`rest/roles/${this.id}`, this.model)
       } else {
         await this.$http.post('rest/roles', this.model)
       }
-      // // console.log('saveend')
       this.$router.push('/roles/list')
-      this.$message({
-        type: 'success',
-        message: '保存成功'
-      })
+      this.$message.success('保存成功')
     },
     async fetch () {
       const res = await this.$http.get(`rest/roles/${this.id}`)
       this.model = res.data
     },
+    // 获取角色列表
     async fetchGetRoles () {
       const res = await this.$http.get(`rest/roles`)
       this.roleCate = res.data
     },
-    async fetchGetMenus () {
-      const res = await this.$http.get(`rest/menus`)
-
-      this.menus = res.data.filter(i => {
-        if (i.level == 1) return true
-        return false
-      })
-      this.clearLastChild(this.menus)
-      // console.log(this.menus);
-
-    },
-    clearLastChild (arr) {
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i].children.length == 0) {
-          delete arr[i].children
-        } else {
-          this.clearLastChild(arr[i].children)
-        }
-      }
+    // 获取权限树
+    async fetchGetPowers () {
+      const res = await this.$http.get(`rest/powers`)
+      this.powers = res.data
+      // console.log(res.data);
+      
     }
   },
   created () {
     this.fetchGetRoles()
-    this.fetchGetMenus()
+    this.fetchGetPowers()
     this.id && this.fetch()
   }
 }
 </script>
+
+<style scoped>
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
+}
+</style>

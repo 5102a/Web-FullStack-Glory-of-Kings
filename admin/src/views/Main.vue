@@ -23,6 +23,14 @@
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
+          <!-- <el-submenu :index="menu1.name" v-for="menu1 in menus" :key="menu1.name">
+            <template slot="title"><i :class="'iconfont '+menuIcon[menu1.name]"></i> {{ menu1.name }}</template>
+            <el-menu-item-group v-for="menu2 in menu1.children" :key="menu2.name">
+              <template slot="title">{{ menu2.name }}</template>
+              <el-menu-item :index="menu3.index" v-for="menu3 in menu2.children" :key="menu3.name">{{ menu3.name }}
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu> -->
           <!-- 一级菜单 -->
           <!-- <el-submenu index="1">
             <template slot="title"
@@ -318,45 +326,50 @@ export default {
       this.isColl = !this.isColl
     },
     async fetch () {
-      if (!sessionStorage.menus) {
-        const res = await this.$http.get('rest/menus')
-        let menus = res.data.filter(i => {
-          if (i.level == 1) return true
-        })
-        // console.log(JSON.parse(sessionStorage.manage));
-        this.matchManage(menus, JSON.parse(sessionStorage.manage))
-        sessionStorage.menus = JSON.stringify(this.menus)
-        console.log(this.menus);
-      } else {
-        this.menus = JSON.parse(sessionStorage.menus)
-      }
+      // const res = await this.$http.get('rest/menus')
+      const res = await this.$http.post('rest/admin_users', { getMenu: 1 })
+      // console.log(res.data)
+      this.menus = res.data
+
+      // if (!sessionStorage.menus) {
+      //   const res = await this.$http.get('rest/menus')
+      //   let menus = res.data.filter(i => {
+      //     if (i.level == 1) return true
+      //   })
+      //   // console.log(JSON.parse(sessionStorage.manage));
+      //   this.matchManage(menus, JSON.parse(sessionStorage.manage))
+      //   sessionStorage.menus = JSON.stringify(this.menus)
+      //   console.log(this.menus);
+      // } else {
+      //   this.menus = JSON.parse(sessionStorage.menus)
+      // }
     },
-    matchManage (origin, match) {
-      this.menus = origin.filter(first => { //一级对象
-        first.children = first.children.filter(second => {//二级
-          second.children = second.children.filter((last) => {//三级对象
-            let res = match.some(i => {
-              if (i.name != last.name) return false
-              return true
-            })
-            if (!res) {
-              return false
-            }
-            return true
-          })
-          if (!second.children.length) {
-            return false
-          } else {
-            return true
-          }
-        })
-        if (!first.children.length) {
-          return false
-        } else {
-          return true
-        }
-      })
-    }
+    // matchManage (origin, match) {
+    //   this.menus = origin.filter(first => { //一级对象
+    //     first.children = first.children.filter(second => {//二级
+    //       second.children = second.children.filter((last) => {//三级对象
+    //         let res = match.some(i => {
+    //           if (i.name != last.name) return false
+    //           return true
+    //         })
+    //         if (!res) {
+    //           return false
+    //         }
+    //         return true
+    //       })
+    //       if (!second.children.length) {
+    //         return false
+    //       } else {
+    //         return true
+    //       }
+    //     })
+    //     if (!first.children.length) {
+    //       return false
+    //     } else {
+    //       return true
+    //     }
+    //   })
+    // }
   },
   created () {
     this.fetch()

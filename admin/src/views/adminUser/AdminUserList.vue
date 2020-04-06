@@ -10,6 +10,7 @@
       <el-table-column prop="_id" label="ID" width="230" ></el-table-column>
       <el-table-column prop="username" label="用户名" width="150" align="center"></el-table-column>
       <el-table-column prop="description" label="用户描述" min-width="150" align="center"></el-table-column>
+      <!-- 用户拥有的角色 -->
       <el-table-column type="expand" label="扮演角色" width="150" align="center">
         <template slot-scope="scope" v-if="scope.row.role&&scope.row.role.length">
           <el-tag effect="plain" :type="tagType[ro.power-1]" v-for="ro in scope.row.role" :key="ro._id">{{ro.name}}</el-tag>
@@ -44,7 +45,7 @@ export default {
     async fetch() {
       const res = await this.$http.get('rest/admin_users')
       this.items = res.data
-      console.log(res.data)
+      // console.log(res.data)
     },
     async remove(row) {
       this.$confirm(`是否确认要删除分类 "${row.username}"`, '提示', {
@@ -53,10 +54,7 @@ export default {
         type: 'warning'
       }).then(async () => {
         await this.$http.delete(`rest/admin_users/${row._id}`)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
+        this.$message.success('删除成功!')
         this.fetch()
       })
     }

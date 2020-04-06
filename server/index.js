@@ -27,6 +27,8 @@ app.use('/uploadVideos', express.static(__dirname + '/uploadVideos'))
 
 
 
+
+
 app.listen(3000, () => {
   console.log(`http://${process.env.domain}`)
 })
