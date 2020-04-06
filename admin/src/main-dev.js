@@ -5,10 +5,11 @@ import http from 'network/http'
 
 import 'plugins/element.js'
 import 'assets/css/style.css'
-
+const sha256=require('js-sha256').sha256
 
 
 Vue.prototype.$http=http
+Vue.prototype.$sha256=sha256
 Vue.config.productionTip = false
 
 

@@ -90,6 +90,7 @@ export default {
     async login() {
       // console.log('ok');
       if (sessionStorage.svgCaptcha != this.checked.trim().toLowerCase()) return false
+      this.model.password=this.$sha256(this.model.password)
       const res = await this.$http.post('login', this.model)
       sessionStorage.token = res.data.token
       return true

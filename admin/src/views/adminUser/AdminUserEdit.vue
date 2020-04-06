@@ -54,6 +54,7 @@ export default {
   methods: {
     async save() {
       // console.log(this.model)
+      this.model.password=this.$sha256(this.model.password)
       if (this.id) {
         await this.$http.put(`rest/admin_users/${this.id}`, this.model)
       } else {
