@@ -14,7 +14,7 @@ module.exports = {
           vue: 'Vue',
           'vue-router': 'VueRouter',
           axios: 'axios',
-          'vue2-editor': 'VueEditor'
+          // 'vue2-editor': 'VueEditor'
         },
         resolve: {
           //文件夹别名
