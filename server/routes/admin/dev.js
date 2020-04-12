@@ -26,6 +26,8 @@ module.exports = app => {
   })
 
   const router = express.Router()
+
+
   //保存分类
   router.post('/', async (req, res) => {
     if (req.body.getMenu) {
@@ -152,7 +154,6 @@ module.exports = app => {
       success: true
     })
   })
-
   //获取分类列表
   router.get('/', async (req, res) => {
 
@@ -200,14 +201,12 @@ module.exports = app => {
     res.send(model)
 
   })
-
   app.use(
     '/admin/api/rest/:resource',
     authMiddleware(),
     resourceMiddleware(),
     router
   )
-
   app.use(
     '/admin/api/upload',
     authMiddleware(),
@@ -219,7 +218,6 @@ module.exports = app => {
       res.send(file)
     }
   )
-
   app.use(
     '/admin/api/uploadVideo',
     authMiddleware(),
@@ -232,7 +230,6 @@ module.exports = app => {
       res.send(video)
     }
   )
-
   app.post('/admin/api/login', async (req, res) => {
     if (req.body.check) {
       res.set('Content-Type', 'image/svg+xml')
