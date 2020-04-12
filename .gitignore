@@ -104,8 +104,5 @@ dist
 .tern-port
 
 #add
-/dump
 uploads
 uploadVideos
-/admin
-/web
