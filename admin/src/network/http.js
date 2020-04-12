@@ -33,7 +33,7 @@ http.interceptors.response.use(res => {
     if (err.response.status === 401) {
       router.push('/login')
     }
-    if (err.response.status === 302) {
+    if (err.response.status === 405) {
       router.push('/homepage')
     }
   }

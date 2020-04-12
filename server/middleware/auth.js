@@ -24,8 +24,9 @@ module.exports = option => {
       }]
     })
     // console.log(req.body.user.role[0]);
+    // console.log(req.baseUrl);
 
-    let baseUrl = /(\/[a-z_]+)$/g.exec(req.baseUrl)[1]
+    let baseUrl = /(\/[a-zA-Z_]+)$/g.exec(req.baseUrl)[1]
 
     let roles = req.body.user.role
 
@@ -56,27 +57,27 @@ module.exports = option => {
       }
       return false
     }
-    console.log(baseUrl, req.baseUrl);
+    // console.log(baseUrl, req.baseUrl);
 
-    console.log(manage(roles, baseUrl, 'write'))
+    // console.log(manage(roles, baseUrl, 'write'))
 
-    // // console.log(/(\/[a-z_]+)$/g.exec(req.baseUrl));
+    // console.log(/(\/[a-z_]+)$/g.exec(req.baseUrl));
 
-    // // console.log(matchPower(baseUrl, req.body.user.role));
+    // console.log(matchPower(baseUrl, req.body.user.role));
 
     let pass = false
     if (req.method == 'GET') {
       pass = manage(roles, baseUrl, 'read')
 
     } else {
-      if (req.method == 'POST' && req.baseUrl == '/admin/api/rest/admin_users'&&req.body.getMenu) {
+      if (req.method == 'POST' && req.baseUrl == '/admin/api/rest/admin_users' && req.body.getMenu) {
         pass = true
       } else {
         pass = manage(roles, baseUrl, 'write')
       }
     }
     if (!pass) {
-      assert(null, 302, '您无权操作')
+      assert(null, 405, '您无权操作')
     }
     // res.data= req.user
     // console.dir(JSON.stringify(res.data))
