@@ -107,5 +107,5 @@ dist
 dump
 uploads
 uploadVideos
-admin
-web
+/admin
+/web
