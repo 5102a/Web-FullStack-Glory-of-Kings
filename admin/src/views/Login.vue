@@ -8,15 +8,15 @@
     <div class="checking">
       登录验证中
       <img
-        src="https://multer-1258613188.cos.ap-shanghai.myqcloud.com/uploads/1.png"
+        src="https://multer-1258613188.file.myqcloud.com/uploads/1.png"
         alt=""
       />
       <img
-        src="https://multer-1258613188.cos.ap-shanghai.myqcloud.com/uploads/2.png"
+        src="https://multer-1258613188.file.myqcloud.com/uploads/2.png"
         alt=""
       />
       <img
-        src="https://multer-1258613188.cos.ap-shanghai.myqcloud.com/uploads/3.png"
+        src="https://multer-1258613188.file.myqcloud.com/uploads/3.png"
         alt=""
       />
     </div>
@@ -89,8 +89,9 @@ export default {
   methods: {
     async login() {
       // console.log('ok');
-      if (sessionStorage.svgCaptcha != this.checked.trim().toLowerCase()) return false
-      this.model.password=this.$sha256(this.model.password)
+      if (sessionStorage.svgCaptcha != this.checked.trim().toLowerCase())
+        return false
+      this.model.password = this.$sha256(this.model.password)
       const res = await this.$http.post('login', this.model)
       sessionStorage.token = res.data.token
       return true

@@ -1,7 +1,11 @@
 <template>
   <div class="page-hero" v-if="model">
     <div class="topbar bg-black py-2 px-3 text-white d-flex ai-center">
-      <img src="https://multer-1258613188.cos.ap-shanghai.myqcloud.com/uploads/logo.png" height="30" alt="" />
+      <img
+        src="https://multer-1258613188.file.myqcloud.com/uploads/logo.png"
+        height="30"
+        alt=""
+      />
 
       <div class="px-2 flex-1">
         <span class="text-white">王者荣耀</span>
@@ -134,7 +138,7 @@
               :key="item.name"
               class="d-flex pt-4"
             >
-              <img  :src="item.hero.avatar" alt="" height="50" />
+              <img :src="item.hero.avatar" alt="" height="50" />
               <p class="flex-1 m-0 ml-3">
                 {{ item.description }}
               </p>

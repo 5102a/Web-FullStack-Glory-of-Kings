@@ -7,12 +7,12 @@ const cosConfig = {
   SecretId: 'AKIDlNksvjadkeKm05za0CG5f0EDxRgjIBYp',
   SecretKey: 'FFzZx5yeBTaUFrEMH1VjjW8TYMzMWS9e',
   Bucket: 'multer-1258613188',
-  Region : 'ap-shanghai',
+  Region: 'ap-shanghai',
   // 可选参数
   FileParallelLimit: 3, // 控制文件上传并发数
   ChunkParallelLimit: 3, // 控制单个文件下分片上传并发数
   ChunkSize: 1024 * 1024, // 控制分片大小，单位 B
-  domain: 'multer-1258613188.cos.ap-shanghai.myqcloud.com', //cos域名
+  domain: 'multer-1258613188.file.myqcloud.com', //cos域名
   dir: 'uploads', //cos文件路径
   onProgress: function (progressData) { //进度回调函数，回调是一个对象，包含进度信息
     //console.log(progressData);
@@ -30,14 +30,14 @@ module.exports = function (opt) {
    */
 
   cosConfig.dir = opt.dir
-  cosConfig.onProgress = opt.onProgress 
-  
+  cosConfig.onProgress = opt.onProgress
+
   let con = {
     cos: cosConfig,
     //Note:如果你传递的是一个函数，你负责创建文件夹，如果你传递的是一个字符串，multer会自动创建 如果什么都不传 系统自己会生成tmp目录
-    destination: opt.dir,  //
+    destination: opt.dir, //
     //destination:function(req,res,cb){
-      //cb(null,cosConfig.dir)
+    //cb(null,cosConfig.dir)
     //},
     //自己会生成个随机16字母的文件名和后缀
     filename: 'auto'
