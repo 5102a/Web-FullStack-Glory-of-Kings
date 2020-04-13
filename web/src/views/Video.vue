@@ -9,7 +9,7 @@
 
     <div class="d-flex" style="border:1px solid #d4d9de;margin:12px 4px">
       <img
-        src="http://game.gtimg.cn/images/yxzj/web201605/main/default_head.jpg"
+        src="https://game.gtimg.cn/images/yxzj/web201605/main/default_head.jpg"
         style="width:20vw;"
         class="p-2 "
         alt=""

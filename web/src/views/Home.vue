@@ -3,21 +3,21 @@
     <swiper  :options="swiperOption">
       <swiper-slide>
         <img
-          src="http://ossweb-img.qq.com/upload/adw/image/20200324/71ca15b117ea503f20141296b1861092.jpeg"
+          src="https://ossweb-img.qq.com/upload/adw/image/20200324/71ca15b117ea503f20141296b1861092.jpeg"
           class="w-100"
           alt=""
         />
       </swiper-slide>
       <swiper-slide>
         <img
-          src="http://ossweb-img.qq.com/upload/adw/image/20200328/4f3f61a6e97f408f80545421aebf393e.jpeg"
+          src="https://ossweb-img.qq.com/upload/adw/image/20200328/4f3f61a6e97f408f80545421aebf393e.jpeg"
           class="w-100"
           alt=""
         />
       </swiper-slide>
       <swiper-slide>
         <img
-          src="http://ossweb-img.qq.com/upload/adw/image/20200324/9efb3d76ecf3205cfc0459ebaa9a1ba4.jpeg"
+          src="https://ossweb-img.qq.com/upload/adw/image/20200324/9efb3d76ecf3205cfc0459ebaa9a1ba4.jpeg"
           class="w-100"
           alt=""
         />

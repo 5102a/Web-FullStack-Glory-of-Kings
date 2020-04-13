@@ -2,14 +2,18 @@
 <html lang="zh-CN">
 
 <head>
+  <script type="text/javascript">
+    if (window.top !== window.self) {
+      window.top.location = window.location;
+    }
+  </script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN / DENY ">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title><%= process.env.NODE_ENV==='production' ? '' : 'dev - '%>王者荣耀</title>
 
-  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1728718_h1tjkovlh5h.css">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1728718_h1tjkovlh5h.css">
 
   <%if( process.env.NODE_ENV==='production' ){%>
   <!-- swiper -->
@@ -49,9 +53,5 @@
   <div id="app"></div>
   <!-- built files will be auto injected -->
 </body>
-<script async type="text/javascript">
-  if (self != top) {
-    top.location = self.location;
-  }
-</script>
+
 </html>

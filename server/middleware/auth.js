@@ -11,7 +11,7 @@ module.exports = option => {
     } = jwt.verify(token, req.app.get('secret'))
     assert(id, 401, '请先登录')
 
-    response.setHeader("X-Frame-Options","SAMEORIGIN")
+  
 
     req.body.user = await await AdminUser.findById(id).populate({
       path: 'role',
