@@ -16,6 +16,7 @@ if (process.env.NODE_ENV == 'production') {
   require('./routes/admin/dev')(app)
 }
 // console.log(process.env.NODE_ENV == "production",process.env.NODE_ENV)
+
 require('./plugins/db')(app)
 require('./routes/web')(app)
 app.use('/', express.static(__dirname + '/web'))
