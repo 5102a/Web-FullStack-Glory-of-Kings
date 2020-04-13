@@ -288,8 +288,8 @@ $type in $spacing-types {
   white-space: nowrap;
 }
 
-// .video-js .vjs-big-play-button {
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-// }
+.video-js .vjs-big-play-button {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
