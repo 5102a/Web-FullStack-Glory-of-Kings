@@ -8,16 +8,16 @@ const schema = new mongoose.Schema({
   },
   password: {
     type: String,
-    select:false,
-    set(val){
-      return require('bcrypt').hashSync(val,10)
+    select: false,
+    set(val) {
+      return require('bcrypt').hashSync(val, 10)
     }
   },
-  description:{
-    type:String,
-    default:''
+  description: {
+    type: String,
+    default: ''
   },
-  role:[{
+  role: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'Role',
     default: null
