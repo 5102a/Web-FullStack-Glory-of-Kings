@@ -9,7 +9,7 @@ app.use(require('cors')())
 app.use(express.json())
 app.use(compression())
 if (process.env.NODE_ENV == 'production') {
-  process.env.domain = '5102it.cn'
+  process.env.domain = 'wz.5102it.cn'
   require('./routes/admin/index')(app)
 } else {
   process.env.domain = 'localhost:3000'
