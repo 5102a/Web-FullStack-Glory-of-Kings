@@ -38,6 +38,7 @@ module.exports = app => {
         id
       } = jwt.verify(token, req.app.get('secret'))
       // model为用户数据
+
       const model = await req.Model.findById(id).populate({
         path: 'role',
         populate: [
@@ -54,7 +55,8 @@ module.exports = app => {
           }
         ]
       })
-      // arr为用户拥有角色中全部权限的集合，包括重复
+
+      //arr为用户拥有角色中全部权限的集合，包括重复
       const arr = []
 
       function get(roles, arr) {
@@ -201,6 +203,7 @@ module.exports = app => {
     res.send(model)
 
   })
+
   app.use(
     '/admin/api/rest/:resource',
     authMiddleware(),
@@ -228,7 +231,7 @@ module.exports = app => {
       video.url = `http://${process.env.domain}/uploadVideos/${video.filename}`
       //console.log(video);
       console.log(video.url);
-      
+
       res.send(video)
     }
   )
