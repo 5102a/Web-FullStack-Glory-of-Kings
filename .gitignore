@@ -102,7 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
-
+.env
 #add
 dump
 uploads
